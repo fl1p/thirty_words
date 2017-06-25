@@ -1,0 +1,14 @@
+{
+  "name": "thirty_words",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Christoph Zipperle",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
