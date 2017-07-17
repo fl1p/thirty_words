@@ -40,6 +40,11 @@ margin: 1em 0;
   height: 33%;
 }
 
+.header {
+  display: block;
+  height: 33%;
+}
+
 .footer {
   display: block;
   height: 33%;
