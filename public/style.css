@@ -28,6 +28,9 @@ border: 0;
 p {
 margin: 1em 0;
 }
+a:link {
+  color: black;
+}
 
 /* LAYOUT */
 
@@ -40,9 +43,12 @@ margin: 1em 0;
   height: 33%;
 }
 
-.header {
-  display: block;
-  height: 33%;
+.content {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  margin: 0 auto;
+  width: 33%;
 }
 
 .footer {
@@ -50,16 +56,15 @@ margin: 1em 0;
   height: 33%;
 }
 
-
 /* START PAGE */
 
-.content {
-  margin: 0 auto;
-  width: 30%;
+.content h1 {
+  font-size: 8em;
 }
 
-.content h1 {
-  font-size: 5em;
+.links {
+  font-size: 2em;
+  text-align: center;
 }
 
 
