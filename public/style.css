@@ -29,6 +29,37 @@ p {
 margin: 1em 0;
 }
 
+/* LAYOUT */
+
+.container {
+  height: 100vh;
+}
+
+.header {
+  display: block;
+  height: 33%;
+}
+
+.footer {
+  display: block;
+  height: 33%;
+}
+
+
+/* START PAGE */
+
+.content {
+  margin: 0 auto;
+  width: 30%;
+}
+
+.content h1 {
+  font-size: 5em;
+}
+
+
+/* SEARCH */
+
 .input {
   margin: 0 auto;
   text-align: center;
