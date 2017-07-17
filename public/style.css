@@ -44,11 +44,10 @@ a:link {
 }
 
 .content {
-  display: table-cell;
+  width:
+  display: table;
   vertical-align: middle;
   text-align: center;
-  margin: 0 auto;
-  width: 33%;
 }
 
 .footer {
