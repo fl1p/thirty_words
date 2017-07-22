@@ -32,6 +32,9 @@ a:link, a:visited, a:hover, a:active {
 color: black !important;
 text-decoration: none !important;
 }
+input:focus {
+outline-style: none;
+}
 
 /* LAYOUT */
 
@@ -51,6 +54,7 @@ text-decoration: none !important;
   vertical-align: middle;
   text-align: center;
   height: 33%;
+  /*border: 1px solid black;*/
 }
 
 .footer {
@@ -72,9 +76,19 @@ text-decoration: none !important;
 #about_link {
   font-size: 1em;
 }
+
 /* SEARCH */
 
 #searchForm {
   margin: 0 auto;
+  width: 100%;
   text-align: center;
+  /*border: 1px solid black;*/
+}
+
+#searchInput {
+  font-size: 3em;
+  text-align: center;
+
+  border: none;
 }
