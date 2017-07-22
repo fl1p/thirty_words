@@ -28,8 +28,9 @@ border: 0;
 p {
 margin: 1em 0;
 }
-a:link {
-  color: black;
+a:link, a:visited, a:hover, a:active {
+color: black !important;
+text-decoration: none !important;
 }
 
 /* LAYOUT */
@@ -44,10 +45,12 @@ a:link {
 }
 
 .content {
-  width:
+  padding-top: 5%;
+  width: inherit;
   display: table;
   vertical-align: middle;
   text-align: center;
+  height: 33%;
 }
 
 .footer {
@@ -58,19 +61,20 @@ a:link {
 /* START PAGE */
 
 .content h1 {
-  font-size: 8em;
+  font-size: 10em;
 }
 
-.links {
-  font-size: 2em;
-  text-align: center;
+#start_button {
+  font-size: 3em;
+  margin-bottom: 0.5em;
 }
 
-
+#about_link {
+  font-size: 1em;
+}
 /* SEARCH */
 
-.input {
+#searchForm {
   margin: 0 auto;
   text-align: center;
-  border: 5px solid red;
 }
