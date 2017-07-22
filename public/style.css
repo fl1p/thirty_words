@@ -30,7 +30,7 @@ margin: 1em 0;
 }
 a:link, a:visited, a:hover, a:active {
 color: black !important;
-text-decoration: none !important;
+text-decoration: underline !important;
 }
 input:focus {
 outline-style: none;
@@ -87,8 +87,17 @@ outline-style: none;
 }
 
 #searchInput {
-  font-size: 3em;
+  font-size: 5em;
   text-align: center;
 
   border: none;
+}
+
+#label {
+ font-size: 4em;
+ color: lightgrey;
+}
+
+#search_link_back {
+  font-size: 1em;
 }
