@@ -7,19 +7,36 @@ $(document).ready(function () {
 
   input.addEventListener('keyup', function () {
     clearTimeout(timer)
-    timer = setTimeout(doneTyping, waitInterval)
+    timer = setTimeout(searchSources, waitInterval)
   })
 
   input.addEventListener('keydown', function (e) {
     if (e.keyCode === 13) {
       e.preventDefault()
-      doneTyping()
+      searchSources()
     } else {
       clearTimeout(timer)
     }
   })
 
-  function doneTyping () {
-    console.log(input.value)
+  function searchSources () {
+    const term = document.querySelector('#searchInput').value
+    const url = `https://en.wikipedia.org/w/api.php`
+    const params = {
+      action: 'opensearch',
+      search: term,
+      limit: 10,
+      namespace: 0,
+      origin: '*',
+      format: 'json'
+    }
+
+    axios.get(url, {params})
+      .then(function (res) {
+        console.log(res)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 })
