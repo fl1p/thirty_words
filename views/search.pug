@@ -1,6 +1,7 @@
 extends layout
 
 include mixins/_searchForm
+include mixins/_sourcesForm
 
 block content
   .container
@@ -8,6 +9,7 @@ block content
     .content
       p#label What are you interested in?
       +searchForm
+      +sourcesForm
       //- .links
       //-   a(href='../') Main |
       //-   a(href='../about') About

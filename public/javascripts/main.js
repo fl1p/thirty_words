@@ -33,7 +33,25 @@ $(document).ready(function () {
 
     axios.get(url, {params})
       .then(function (res) {
-        console.log(res)
+        const html = res.data[1].map((source, i) => {
+          const name = `source_${i}`
+          return `
+            <div class='sources_list_entry'>
+              <label for=${name}> ${source} </label>
+              <input type='checkbox' id=${name}>
+            </div>
+          `
+        }).join('')
+
+        const finalHtml = html.concat('<input id="searchWords" class="button" type="submit" value="Go">')
+
+        // (re-)move search form
+        // TODO
+
+        // display sources form with appended checkboxes
+        document.querySelector('#searchInput').blur()
+        document.querySelector('#sourcesForm').innerHTML = finalHtml
+        document.querySelector('#sourcesForm').style.display = 'block'
       })
       .catch(function (error) {
         console.log(error)
