@@ -36,20 +36,24 @@ $(document).ready(function () {
         const html = res.data[1].map((source, i) => {
           const name = `source_${i}`
           return `
+            <hr>
             <div class='sources_list_entry'>
-              <label for=${name}> ${source} </label>
-              <input type='checkbox' id=${name}>
+              <p class='inactive'> ${source} </p>
             </div>
-          `
-        }).join('')
 
-        const finalHtml = html.concat('<input id="searchWords" class="button" type="submit" value="Go">')
+          `
+        }).join('').concat('<hr>')
+
+        const top = "<div id='sources_list'>"
+        const bottom = '<input id="sources_submit_button" class="button" type="submit" value="Go"> </div>'
+        const finalHtml = top.concat(html).concat(bottom)
 
         // (re-)move search form
         // TODO
 
-        // display sources form with appended checkboxes
+        // display next 'screen'
         document.querySelector('#searchInput').blur()
+        document.querySelector('#sources_label').style.display = 'block'
         document.querySelector('#sourcesForm').innerHTML = finalHtml
         document.querySelector('#sourcesForm').style.display = 'block'
       })

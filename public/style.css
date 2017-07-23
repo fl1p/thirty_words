@@ -49,7 +49,8 @@ outline-style: none;
 
 .content {
   padding-top: 5%;
-  width: inherit;
+  width: 90%;
+  margin: 0 auto;
   display: table;
   vertical-align: middle;
   text-align: center;
@@ -93,11 +94,37 @@ outline-style: none;
   border: none;
 }
 
-#label {
+.text_label {
  font-size: 4em;
  color: lightgrey;
 }
 
 #search_link_back {
   font-size: 1em;
+}
+
+#sourcesForm {
+  display: none;
+}
+
+#sources_list {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 2em;
+  color: darkgrey;
+}
+
+#sources_submit_button {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.sources_list_entry:hover {
+  font-size: 1.5em;
+  color: black;
+}
+
+#sources_label {
+  margin-top: 1em;
+  display: none;
 }
