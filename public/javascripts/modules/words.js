@@ -72,10 +72,24 @@ function searchWords () {
   console.log('Searhing words---')
 
   // get all list entries with class active into array
-  var arr = [];
+  let selectedSources = []
   const sources = document.querySelectorAll('.sources_list_entry .active')
-  for (var i = sources.length; i--; arr.unshift(sources[i]));
-              //  .map(function (node) { return encodeURI(node.textContent.trim()) })
+  for (var i = sources.length; i--; selectedSources.unshift(sources[i]));
 
-  console.log(arr)
+  const urls = selectedSources.map(function (node) { return encodeURI(node.textContent.trim()) })
+                              .map(function (title) { return url(title) })
+
+  let promiseArray = urls.map(url => axios.get(url))
+  axios.all(promiseArray)
+  .then(function (response) {
+    console.log(response)
+  })
+  console.log(urls)
+}
+
+// creates a wikimedia url for a given page title
+function url (title) {
+  const url = 'https://en.wikipedia.org/w/api.php'
+  const query = `?action=query&titles=${title}&prop=revisions&rvprop=content&format=json&origin=*`
+  return url.concat(query)
 }

@@ -125,6 +125,7 @@ outline-style: none;
   font-size: 1.3em;
 }
 
+/* TODO use either the div or the p then deselect / hover should work */
 .sources_list_entry {
   color: darkgrey;
   font-weight: 300;
@@ -132,6 +133,7 @@ outline-style: none;
 
 .sources_list_entry:hover {
   color: black;
+  font-weight: 300;
 }
 
 .sources_list_entry .active {

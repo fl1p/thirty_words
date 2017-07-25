@@ -1,10 +1,12 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const cors = require('cors')
 
 /* Settings */
 app.set('views', './views')
 app.set('view engine', 'pug')
+app.use(cors())
 
 /* Declare static directory */
 app.use(express.static(path.join(__dirname,'public')))
