@@ -39,7 +39,7 @@ function searchSources () {
       }).join('').concat('<hr>')
 
       const top = "<div id='sources_list'>"
-      const bottom = '<input id="sources_submit_button" class="button btn btn-lg btn-default" type="submit" value="Find words"> </div>'
+      const bottom = '</div> <input id="sources_submit_button" class="button btn btn-lg btn-default" type="submit" value="Find words"> '
       const finalHtml = top.concat(html).concat(bottom)
 
       // TODO (re-)move / animate search form

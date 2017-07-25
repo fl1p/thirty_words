@@ -107,11 +107,16 @@ outline-style: none;
   display: none;
 }
 
+#sources_label {
+  margin-top: 1em;
+  display: none;
+}
+
 #sources_list {
   margin-top: 1em;
   margin-bottom: 1em;
   font-size: 2em;
-  color: darkgrey;
+
 }
 
 #sources_submit_button {
@@ -121,20 +126,16 @@ outline-style: none;
 }
 
 .sources_list_entry {
-
+  color: darkgrey;
+  font-weight: 300;
 }
 
 .sources_list_entry:hover {
-  font-size: 1.5em;
   color: black;
 }
 
 .sources_list_entry .active {
-  font-size: 1.5em;
-  color: black;
-}
+  color: dimgray;
+  font-weight: 400;
 
-#sources_label {
-  margin-top: 1em;
-  display: none;
 }
