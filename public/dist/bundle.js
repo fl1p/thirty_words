@@ -2509,7 +2509,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.searchSources = undefined;
-exports.searchWords = searchWords;
 
 var _axios = __webpack_require__(18);
 
@@ -2625,7 +2624,7 @@ function searchWords() {
   axios.all(promiseArray).then(function (response) {
     var finalWords = response.map(function (source) {
       return parseWikiMarkup(source);
-    });
+    }).filter(deleteMetaPages);
     console.log(finalWords);
   });
   console.log(urls);
@@ -2648,6 +2647,14 @@ function parseWikiMarkup(source) {
     words = wtfWikipedia.parse(wikiPage);
   }
   return words;
+}
+
+// returns false for meta pages
+function deleteMetaPages(page) {
+  if (page.type !== 'page') {
+    console.log('Page filtered: ' + page.type);
+  }
+  return page.type === 'page';
 }
 
 /***/ }),

@@ -71,7 +71,7 @@ export const searchSources = function () {
 
 // STEP 2: Words
 
-export function searchWords () {
+function searchWords () {
   console.log('Searhing words---')
 
   // get all list entries with class active into array
@@ -87,6 +87,7 @@ export function searchWords () {
   .then(function (response) {
     let finalWords = (
       response.map(source => parseWikiMarkup(source))
+              .filter(deleteMetaPages)
     )
     console.log(finalWords)
   })
@@ -110,4 +111,12 @@ function parseWikiMarkup (source) {
     words = wtfWikipedia.parse(wikiPage)
   }
   return words
+}
+
+// returns false for meta pages
+function deleteMetaPages (page) {
+  if (page.type !== 'page') {
+    console.log('Page filtered: ' + page.type)
+  }
+  return (page.type === 'page')
 }
