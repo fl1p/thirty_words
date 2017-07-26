@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "test",
-    "build": "webpack public/src/javascripts/main.js public/dist/bundle.js"
+    "build": "webpack",
+    "build:prod": "webpack -p"
   },
   "author": "Christoph Zipperle",
   "license": "ISC",

@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/public";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 8);
@@ -69,6 +69,8 @@
 
 "use strict";
 
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var bind = __webpack_require__(2);
 var isBuffer = __webpack_require__(12);
@@ -106,7 +108,7 @@ function isArrayBuffer(val) {
  * @returns {boolean} True if value is an FormData, otherwise false
  */
 function isFormData(val) {
-  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+  return typeof FormData !== 'undefined' && val instanceof FormData;
 }
 
 /**
@@ -117,10 +119,10 @@ function isFormData(val) {
  */
 function isArrayBufferView(val) {
   var result;
-  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+  if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
     result = ArrayBuffer.isView(val);
   } else {
-    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+    result = val && val.buffer && val.buffer instanceof ArrayBuffer;
   }
   return result;
 }
@@ -162,7 +164,7 @@ function isUndefined(val) {
  * @returns {boolean} True if value is an Object, otherwise false
  */
 function isObject(val) {
-  return val !== null && typeof val === 'object';
+  return val !== null && (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object';
 }
 
 /**
@@ -252,10 +254,7 @@ function isStandardBrowserEnv() {
   if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
     return false;
   }
-  return (
-    typeof window !== 'undefined' &&
-    typeof document !== 'undefined'
-  );
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
 }
 
 /**
@@ -277,7 +276,7 @@ function forEach(obj, fn) {
   }
 
   // Force an array if not already something iterable
-  if (typeof obj !== 'object' && !isArray(obj)) {
+  if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' && !isArray(obj)) {
     /*eslint no-param-reassign:0*/
     obj = [obj];
   }
@@ -314,10 +313,10 @@ function forEach(obj, fn) {
  * @param {Object} obj1 Object to merge
  * @returns {Object} Result of all merge properties
  */
-function merge(/* obj1, obj2, obj3, ... */) {
+function merge() /* obj1, obj2, obj3, ... */{
   var result = {};
   function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
+    if (_typeof(result[key]) === 'object' && (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object') {
       result[key] = merge(result[key], val);
     } else {
       result[key] = val;
@@ -372,7 +371,6 @@ module.exports = {
   trim: trim
 };
 
-
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -410,13 +408,7 @@ var defaults = {
 
   transformRequest: [function transformRequest(data, headers) {
     normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
+    if (utils.isFormData(data) || utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
       return data;
     }
     if (utils.isArrayBufferView(data)) {
@@ -438,7 +430,7 @@ var defaults = {
     if (typeof data === 'string') {
       try {
         data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
+      } catch (e) {/* Ignore */}
     }
     return data;
   }],
@@ -470,7 +462,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 });
 
 module.exports = defaults;
-
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
@@ -490,10 +481,12 @@ module.exports = function bind(fn, thisArg) {
   };
 };
 
-
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 // shim for using process in browser
 var process = module.exports = {};
@@ -509,7 +502,7 @@ var cachedClearTimeout;
 function defaultSetTimout() {
     throw new Error('setTimeout has not been defined');
 }
-function defaultClearTimeout () {
+function defaultClearTimeout() {
     throw new Error('clearTimeout has not been defined');
 }
 (function () {
@@ -531,7 +524,7 @@ function defaultClearTimeout () {
     } catch (e) {
         cachedClearTimeout = defaultClearTimeout;
     }
-} ())
+})();
 function runTimeout(fun) {
     if (cachedSetTimeout === setTimeout) {
         //normal enviroments in sane situations
@@ -545,17 +538,15 @@ function runTimeout(fun) {
     try {
         // when when somebody has screwed with setTimeout but no I.E. maddness
         return cachedSetTimeout(fun, 0);
-    } catch(e){
+    } catch (e) {
         try {
             // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
             return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
+        } catch (e) {
             // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
             return cachedSetTimeout.call(this, fun, 0);
         }
     }
-
-
 }
 function runClearTimeout(marker) {
     if (cachedClearTimeout === clearTimeout) {
@@ -570,19 +561,16 @@ function runClearTimeout(marker) {
     try {
         // when when somebody has screwed with setTimeout but no I.E. maddness
         return cachedClearTimeout(marker);
-    } catch (e){
+    } catch (e) {
         try {
             // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
             return cachedClearTimeout.call(null, marker);
-        } catch (e){
+        } catch (e) {
             // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
             // Some versions of I.E. have different rules for clearTimeout vs setTimeout
             return cachedClearTimeout.call(this, marker);
         }
     }
-
-
-
 }
 var queue = [];
 var draining = false;
@@ -612,7 +600,7 @@ function drainQueue() {
     draining = true;
 
     var len = queue.length;
-    while(len) {
+    while (len) {
         currentQueue = queue;
         queue = [];
         while (++queueIndex < len) {
@@ -668,18 +656,23 @@ process.emit = noop;
 process.prependListener = noop;
 process.prependOnceListener = noop;
 
-process.listeners = function (name) { return [] }
+process.listeners = function (name) {
+    return [];
+};
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
 };
 
-process.cwd = function () { return '/' };
+process.cwd = function () {
+    return '/';
+};
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
-process.umask = function() { return 0; };
-
+process.umask = function () {
+    return 0;
+};
 
 /***/ }),
 /* 4 */
@@ -694,7 +687,7 @@ var buildURL = __webpack_require__(17);
 var parseHeaders = __webpack_require__(18);
 var isURLSameOrigin = __webpack_require__(19);
 var createError = __webpack_require__(5);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
+var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(20);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -712,10 +705,7 @@ module.exports = function xhrAdapter(config) {
     // For IE 8/9 CORS support
     // Only supports POST and GET calls and doesn't returns the response headers.
     // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if (process.env.NODE_ENV !== 'test' &&
-        typeof window !== 'undefined' &&
-        window.XDomainRequest && !('withCredentials' in request) &&
-        !isURLSameOrigin(config.url)) {
+    if (process.env.NODE_ENV !== 'test' && typeof window !== 'undefined' && window.XDomainRequest && !('withCredentials' in request) && !isURLSameOrigin(config.url)) {
       request = new window.XDomainRequest();
       loadEvent = 'onload';
       xDomain = true;
@@ -737,7 +727,7 @@ module.exports = function xhrAdapter(config) {
 
     // Listen for ready state
     request[loadEvent] = function handleLoad() {
-      if (!request || (request.readyState !== 4 && !xDomain)) {
+      if (!request || request.readyState !== 4 && !xDomain) {
         return;
       }
 
@@ -780,8 +770,7 @@ module.exports = function xhrAdapter(config) {
 
     // Handle timeout
     request.ontimeout = function handleTimeout() {
-      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
-        request));
+      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED', request));
 
       // Clean up request
       request = null;
@@ -794,9 +783,7 @@ module.exports = function xhrAdapter(config) {
       var cookies = __webpack_require__(21);
 
       // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-          cookies.read(config.xsrfCookieName) :
-          undefined;
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
 
       if (xsrfValue) {
         requestHeaders[config.xsrfHeaderName] = xsrfValue;
@@ -866,7 +853,6 @@ module.exports = function xhrAdapter(config) {
     request.send(requestData);
   });
 };
-
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
@@ -893,7 +879,6 @@ module.exports = function createError(message, config, code, request, response) 
   return enhanceError(error, config, code, request, response);
 };
 
-
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -904,7 +889,6 @@ module.exports = function createError(message, config, code, request, response) 
 module.exports = function isCancel(value) {
   return !!(value && value.__CANCEL__);
 };
-
 
 /***/ }),
 /* 7 */
@@ -919,6 +903,7 @@ module.exports = function isCancel(value) {
  * @class
  * @param {string=} message The message.
  */
+
 function Cancel(message) {
   this.message = message;
 }
@@ -931,156 +916,181 @@ Cancel.prototype.__CANCEL__ = true;
 
 module.exports = Cancel;
 
-
 /***/ }),
 /* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_words__ = __webpack_require__(9);
 
+
+var _words = __webpack_require__(9);
 
 $(document).ready(function () {
   // SEARCH SOURCES
 
   // set up event listener to detect user input
-  const input = document.querySelector('#searchInput')
+  var input = document.querySelector('#searchInput');
   if (input) {
-    let timer
-    const waitInterval = 2000
+    var timer = void 0;
+    var waitInterval = 2000;
 
     input.addEventListener('keyup', function () {
-      clearTimeout(timer)
-      timer = setTimeout(__WEBPACK_IMPORTED_MODULE_0__modules_words__["a" /* searchSources */], waitInterval)
-    })
+      clearTimeout(timer);
+      timer = setTimeout(_words.searchSources, waitInterval);
+    });
 
     // TODO somehow this creates two calls to the wiki api instead of just one
     input.addEventListener('keydown', function (e) {
       if (e.keyCode === 13) {
-        e.preventDefault()
-        console.log('Yup')
-        Object(__WEBPACK_IMPORTED_MODULE_0__modules_words__["a" /* searchSources */])()
+        e.preventDefault();
+        console.log('Yup');
+        (0, _words.searchSources)();
       } else {
-        clearTimeout(timer)
+        clearTimeout(timer);
       }
-    })
+    });
   }
-})
-
+});
 
 /***/ }),
 /* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* unused harmony export searchWords */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.searchSources = undefined;
+exports.searchWords = searchWords;
+
+var _axios = __webpack_require__(10);
+
+var axios = _interopRequireWildcard(_axios);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // STEP 1 - SOURCES
 
-function clickSource (event) {
-  const element = event.target
+function clickSource(event) {
+  var element = event.target;
   if (element.className === '') {
-    element.className = 'active'
+    element.className = 'active';
   } else if (element.className === 'active') {
-    element.className = ''
+    element.className = '';
   }
 }
 
-function addListenersToSourcesForm () {
-  const list = document.querySelectorAll('.sources_list_entry')
-  for (var item of list) {
-    item.addEventListener('click', clickSource)
+function addListenersToSourcesForm() {
+  var list = document.querySelectorAll('.sources_list_entry');
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = list[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var item = _step.value;
+
+      item.addEventListener('click', clickSource);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
   }
 
   document.querySelector('#sourcesForm').addEventListener('submit', function (e) {
-    e.preventDefault()
-    searchWords()
-  })
+    e.preventDefault();
+    searchWords();
+  });
 }
 
 // search sources based on user input
-const searchSources = function () {
-  const term = document.querySelector('#searchInput').value
-  const url = `https://en.wikipedia.org/w/api.php`
-  const params = {
+var searchSources = exports.searchSources = function searchSources() {
+  var term = document.querySelector('#searchInput').value;
+  var url = 'https://en.wikipedia.org/w/api.php';
+  var params = {
     action: 'opensearch',
     search: term,
     limit: 10,
     namespace: 0,
     origin: '*',
     format: 'json'
-  }
+  };
 
-  __WEBPACK_IMPORTED_MODULE_0_axios__["get"](url, {params})
-    .then(function (res) {
-      const html = res.data[1].map((source, i) => {
-        return `
-          <hr>
-          <div class='sources_list_entry'>
-            <p> ${source} </p>
-          </div>
-        `
-      }).join('').concat('<hr>')
+  axios.get(url, { params: params }).then(function (res) {
+    var html = res.data[1].map(function (source, i) {
+      return '\n          <hr>\n          <div class=\'sources_list_entry\'>\n            <p> ' + source + ' </p>\n          </div>\n        ';
+    }).join('').concat('<hr>');
 
-      const top = "<div id='sources_list'>"
-      const bottom = '</div> <input id="sources_submit_button" class="button btn btn-lg btn-default" type="submit" value="Find words"> '
-      const finalHtml = top.concat(html).concat(bottom)
+    var top = "<div id='sources_list'>";
+    var bottom = '</div> <input id="sources_submit_button" class="button btn btn-lg btn-default" type="submit" value="Find words"> ';
+    var finalHtml = top.concat(html).concat(bottom);
 
-      // TODO (re-)move / animate search form
+    // TODO (re-)move / animate search form
 
-      // display next 'screen'
-      document.querySelector('#searchInput').blur()
-      document.querySelector('#sources_label').style.display = 'block'
-      document.querySelector('#sourcesForm').innerHTML = finalHtml
-      document.querySelector('#sourcesForm').style.display = 'block'
+    // display next 'screen'
+    document.querySelector('#searchInput').blur();
+    document.querySelector('#sources_label').style.display = 'block';
+    document.querySelector('#sourcesForm').innerHTML = finalHtml;
+    document.querySelector('#sourcesForm').style.display = 'block';
 
-      addListenersToSourcesForm()
-    })
-    .catch(function (error) {
-      // TODO
-      // think of appropriate error handling
-      console.log(error)
-    })
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = searchSources;
-
+    addListenersToSourcesForm();
+  }).catch(function (error) {
+    // TODO
+    // think of appropriate error handling
+    console.log(error);
+  });
+};
 
 // STEP 2: Words
 
-function searchWords () {
-  console.log('Searhing words---')
+function searchWords() {
+  console.log('Searhing words---');
 
   // get all list entries with class active into array
-  let selectedSources = []
-  const sources = document.querySelectorAll('.sources_list_entry .active')
-  for (var i = sources.length; i--; selectedSources.unshift(sources[i]));
+  var selectedSources = [];
+  var sources = document.querySelectorAll('.sources_list_entry .active');
+  for (var i = sources.length; i--; selectedSources.unshift(sources[i])) {}
 
-  const urls = selectedSources.map(function (node) { return encodeURI(node.textContent.trim()) })
-                              .map(function (title) { return url(title) })
+  var urls = selectedSources.map(function (node) {
+    return encodeURI(node.textContent.trim());
+  }).map(function (title) {
+    return url(title);
+  });
 
-  let promiseArray = urls.map(url => __WEBPACK_IMPORTED_MODULE_0_axios__["get"](url))
-  __WEBPACK_IMPORTED_MODULE_0_axios__["all"](promiseArray)
-  .then(function (response) {
-    console.log(response)
-  })
-  console.log(urls)
+  var promiseArray = urls.map(function (url) {
+    return axios.get(url);
+  });
+  axios.all(promiseArray).then(function (response) {
+    console.log(response);
+  });
+  console.log(urls);
 }
 
 // creates a wikimedia url for a given page title
-function url (title) {
-  const url = 'https://en.wikipedia.org/w/api.php'
-  const query = `?action=query&titles=${title}&prop=revisions&rvprop=content&format=json&origin=*`
-  return url.concat(query)
+function url(title) {
+  var url = 'https://en.wikipedia.org/w/api.php';
+  var query = '?action=query&titles=' + title + '&prop=revisions&rvprop=content&format=json&origin=*';
+  return url.concat(query);
 }
-
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 module.exports = __webpack_require__(11);
 
@@ -1142,10 +1152,12 @@ module.exports = axios;
 // Allow use of default import syntax in TypeScript
 module.exports.default = axios;
 
-
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /*!
  * Determine if an object is a Buffer
@@ -1157,18 +1169,17 @@ module.exports.default = axios;
 // The _isBuffer check is for Safari 5-7 support, because it's missing
 // Object.prototype.constructor. Remove this eventually
 module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer);
+};
 
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+function isBuffer(obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
 }
 
 // For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+function isSlowBuffer(obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0));
 }
-
 
 /***/ }),
 /* 13 */
@@ -1241,7 +1252,7 @@ Axios.prototype.request = function request(config) {
 // Provide aliases for supported request methods
 utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
   /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, config) {
+  Axios.prototype[method] = function (url, config) {
     return this.request(utils.merge(config || {}, {
       method: method,
       url: url
@@ -1251,7 +1262,7 @@ utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData
 
 utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
   /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, data, config) {
+  Axios.prototype[method] = function (url, data, config) {
     return this.request(utils.merge(config || {}, {
       method: method,
       url: url,
@@ -1261,7 +1272,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 });
 
 module.exports = Axios;
-
 
 /***/ }),
 /* 14 */
@@ -1280,7 +1290,6 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
     }
   });
 };
-
 
 /***/ }),
 /* 15 */
@@ -1304,16 +1313,9 @@ module.exports = function settle(resolve, reject, response) {
   if (!response.status || !validateStatus || validateStatus(response.status)) {
     resolve(response);
   } else {
-    reject(createError(
-      'Request failed with status code ' + response.status,
-      response.config,
-      null,
-      response.request,
-      response
-    ));
+    reject(createError('Request failed with status code ' + response.status, response.config, null, response.request, response));
   }
 };
-
 
 /***/ }),
 /* 16 */
@@ -1332,6 +1334,7 @@ module.exports = function settle(resolve, reject, response) {
  * @param {Object} [response] The response.
  * @returns {Error} The error.
  */
+
 module.exports = function enhanceError(error, config, code, request, response) {
   error.config = config;
   if (code) {
@@ -1341,7 +1344,6 @@ module.exports = function enhanceError(error, config, code, request, response) {
   error.response = response;
   return error;
 };
-
 
 /***/ }),
 /* 17 */
@@ -1353,14 +1355,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 var utils = __webpack_require__(0);
 
 function encode(val) {
-  return encodeURIComponent(val).
-    replace(/%40/gi, '@').
-    replace(/%3A/gi, ':').
-    replace(/%24/g, '$').
-    replace(/%2C/gi, ',').
-    replace(/%20/g, '+').
-    replace(/%5B/gi, '[').
-    replace(/%5D/gi, ']');
+  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
 }
 
 /**
@@ -1417,7 +1412,6 @@ module.exports = function buildURL(url, params, paramsSerializer) {
   return url;
 };
 
-
 /***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1446,7 +1440,9 @@ module.exports = function parseHeaders(headers) {
   var val;
   var i;
 
-  if (!headers) { return parsed; }
+  if (!headers) {
+    return parsed;
+  }
 
   utils.forEach(headers.split('\n'), function parser(line) {
     i = line.indexOf(':');
@@ -1461,7 +1457,6 @@ module.exports = function parseHeaders(headers) {
   return parsed;
 };
 
-
 /***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1471,71 +1466,65 @@ module.exports = function parseHeaders(headers) {
 
 var utils = __webpack_require__(0);
 
-module.exports = (
-  utils.isStandardBrowserEnv() ?
+module.exports = utils.isStandardBrowserEnv() ?
 
-  // Standard browser envs have full support of the APIs needed to test
-  // whether the request URL is of the same origin as current location.
-  (function standardBrowserEnv() {
-    var msie = /(msie|trident)/i.test(navigator.userAgent);
-    var urlParsingNode = document.createElement('a');
-    var originURL;
+// Standard browser envs have full support of the APIs needed to test
+// whether the request URL is of the same origin as current location.
+function standardBrowserEnv() {
+  var msie = /(msie|trident)/i.test(navigator.userAgent);
+  var urlParsingNode = document.createElement('a');
+  var originURL;
 
-    /**
-    * Parse a URL to discover it's components
-    *
-    * @param {String} url The URL to be parsed
-    * @returns {Object}
-    */
-    function resolveURL(url) {
-      var href = url;
+  /**
+  * Parse a URL to discover it's components
+  *
+  * @param {String} url The URL to be parsed
+  * @returns {Object}
+  */
+  function resolveURL(url) {
+    var href = url;
 
-      if (msie) {
-        // IE needs attribute set twice to normalize properties
-        urlParsingNode.setAttribute('href', href);
-        href = urlParsingNode.href;
-      }
-
+    if (msie) {
+      // IE needs attribute set twice to normalize properties
       urlParsingNode.setAttribute('href', href);
-
-      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-      return {
-        href: urlParsingNode.href,
-        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-        host: urlParsingNode.host,
-        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-        hostname: urlParsingNode.hostname,
-        port: urlParsingNode.port,
-        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
-                  urlParsingNode.pathname :
-                  '/' + urlParsingNode.pathname
-      };
+      href = urlParsingNode.href;
     }
 
-    originURL = resolveURL(window.location.href);
+    urlParsingNode.setAttribute('href', href);
 
-    /**
-    * Determine if a URL shares the same origin as the current location
-    *
-    * @param {String} requestURL The URL to test
-    * @returns {boolean} True if URL shares the same origin, otherwise false
-    */
-    return function isURLSameOrigin(requestURL) {
-      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
-      return (parsed.protocol === originURL.protocol &&
-            parsed.host === originURL.host);
+    // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+    return {
+      href: urlParsingNode.href,
+      protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+      host: urlParsingNode.host,
+      search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+      hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+      hostname: urlParsingNode.hostname,
+      port: urlParsingNode.port,
+      pathname: urlParsingNode.pathname.charAt(0) === '/' ? urlParsingNode.pathname : '/' + urlParsingNode.pathname
     };
-  })() :
+  }
 
-  // Non standard browser envs (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return function isURLSameOrigin() {
-      return true;
-    };
-  })()
-);
+  originURL = resolveURL(window.location.href);
 
+  /**
+  * Determine if a URL shares the same origin as the current location
+  *
+  * @param {String} requestURL The URL to test
+  * @returns {boolean} True if URL shares the same origin, otherwise false
+  */
+  return function isURLSameOrigin(requestURL) {
+    var parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
+    return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
+  };
+}() :
+
+// Non standard browser envs (web workers, react-native) lack needed support.
+function nonStandardBrowserEnv() {
+  return function isURLSameOrigin() {
+    return true;
+  };
+}();
 
 /***/ }),
 /* 20 */
@@ -1551,7 +1540,7 @@ var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 function E() {
   this.message = 'String contains an invalid character';
 }
-E.prototype = new Error;
+E.prototype = new Error();
 E.prototype.code = 5;
 E.prototype.name = 'InvalidCharacterError';
 
@@ -1559,15 +1548,14 @@ function btoa(input) {
   var str = String(input);
   var output = '';
   for (
-    // initialize result and counter
-    var block, charCode, idx = 0, map = chars;
-    // if the next str index does not exist:
-    //   change the mapping table to "="
-    //   check if d has no fractional digits
-    str.charAt(idx | 0) || (map = '=', idx % 1);
-    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
-    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
-  ) {
+  // initialize result and counter
+  var block, charCode, idx = 0, map = chars;
+  // if the next str index does not exist:
+  //   change the mapping table to "="
+  //   check if d has no fractional digits
+  str.charAt(idx | 0) || (map = '=', idx % 1);
+  // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+  output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
     charCode = str.charCodeAt(idx += 3 / 4);
     if (charCode > 0xFF) {
       throw new E();
@@ -1579,7 +1567,6 @@ function btoa(input) {
 
 module.exports = btoa;
 
-
 /***/ }),
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1589,56 +1576,55 @@ module.exports = btoa;
 
 var utils = __webpack_require__(0);
 
-module.exports = (
-  utils.isStandardBrowserEnv() ?
+module.exports = utils.isStandardBrowserEnv() ?
 
-  // Standard browser envs support document.cookie
-  (function standardBrowserEnv() {
-    return {
-      write: function write(name, value, expires, path, domain, secure) {
-        var cookie = [];
-        cookie.push(name + '=' + encodeURIComponent(value));
+// Standard browser envs support document.cookie
+function standardBrowserEnv() {
+  return {
+    write: function write(name, value, expires, path, domain, secure) {
+      var cookie = [];
+      cookie.push(name + '=' + encodeURIComponent(value));
 
-        if (utils.isNumber(expires)) {
-          cookie.push('expires=' + new Date(expires).toGMTString());
-        }
-
-        if (utils.isString(path)) {
-          cookie.push('path=' + path);
-        }
-
-        if (utils.isString(domain)) {
-          cookie.push('domain=' + domain);
-        }
-
-        if (secure === true) {
-          cookie.push('secure');
-        }
-
-        document.cookie = cookie.join('; ');
-      },
-
-      read: function read(name) {
-        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-        return (match ? decodeURIComponent(match[3]) : null);
-      },
-
-      remove: function remove(name) {
-        this.write(name, '', Date.now() - 86400000);
+      if (utils.isNumber(expires)) {
+        cookie.push('expires=' + new Date(expires).toGMTString());
       }
-    };
-  })() :
 
-  // Non standard browser env (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return {
-      write: function write() {},
-      read: function read() { return null; },
-      remove: function remove() {}
-    };
-  })()
-);
+      if (utils.isString(path)) {
+        cookie.push('path=' + path);
+      }
 
+      if (utils.isString(domain)) {
+        cookie.push('domain=' + domain);
+      }
+
+      if (secure === true) {
+        cookie.push('secure');
+      }
+
+      document.cookie = cookie.join('; ');
+    },
+
+    read: function read(name) {
+      var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+      return match ? decodeURIComponent(match[3]) : null;
+    },
+
+    remove: function remove(name) {
+      this.write(name, '', Date.now() - 86400000);
+    }
+  };
+}() :
+
+// Non standard browser env (web workers, react-native) lack needed support.
+function nonStandardBrowserEnv() {
+  return {
+    write: function write() {},
+    read: function read() {
+      return null;
+    },
+    remove: function remove() {}
+  };
+}();
 
 /***/ }),
 /* 22 */
@@ -1698,7 +1684,6 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 
 module.exports = InterceptorManager;
 
-
 /***/ }),
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1733,25 +1718,14 @@ module.exports = function dispatchRequest(config) {
   config.headers = config.headers || {};
 
   // Transform request data
-  config.data = transformData(
-    config.data,
-    config.headers,
-    config.transformRequest
-  );
+  config.data = transformData(config.data, config.headers, config.transformRequest);
 
   // Flatten headers
-  config.headers = utils.merge(
-    config.headers.common || {},
-    config.headers[config.method] || {},
-    config.headers || {}
-  );
+  config.headers = utils.merge(config.headers.common || {}, config.headers[config.method] || {}, config.headers || {});
 
-  utils.forEach(
-    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
-    function cleanHeaderConfig(method) {
-      delete config.headers[method];
-    }
-  );
+  utils.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], function cleanHeaderConfig(method) {
+    delete config.headers[method];
+  });
 
   var adapter = config.adapter || defaults.adapter;
 
@@ -1759,11 +1733,7 @@ module.exports = function dispatchRequest(config) {
     throwIfCancellationRequested(config);
 
     // Transform response data
-    response.data = transformData(
-      response.data,
-      response.headers,
-      config.transformResponse
-    );
+    response.data = transformData(response.data, response.headers, config.transformResponse);
 
     return response;
   }, function onAdapterRejection(reason) {
@@ -1772,18 +1742,13 @@ module.exports = function dispatchRequest(config) {
 
       // Transform response data
       if (reason && reason.response) {
-        reason.response.data = transformData(
-          reason.response.data,
-          reason.response.headers,
-          config.transformResponse
-        );
+        reason.response.data = transformData(reason.response.data, reason.response.headers, config.transformResponse);
       }
     }
 
     return Promise.reject(reason);
   });
 };
-
 
 /***/ }),
 /* 24 */
@@ -1811,7 +1776,6 @@ module.exports = function transformData(data, headers, fns) {
   return data;
 };
 
-
 /***/ }),
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1825,13 +1789,14 @@ module.exports = function transformData(data, headers, fns) {
  * @param {string} url The URL to test
  * @returns {boolean} True if the specified URL is absolute, otherwise false
  */
+
 module.exports = function isAbsoluteURL(url) {
   // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
   // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
   // by any combination of letters, digits, plus, period, or hyphen.
-  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+  return (/^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+  );
 };
-
 
 /***/ }),
 /* 26 */
@@ -1847,12 +1812,10 @@ module.exports = function isAbsoluteURL(url) {
  * @param {string} relativeURL The relative URL
  * @returns {string} The combined URL
  */
-module.exports = function combineURLs(baseURL, relativeURL) {
-  return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-    : baseURL;
-};
 
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL;
+};
 
 /***/ }),
 /* 27 */
@@ -1917,7 +1880,6 @@ CancelToken.source = function source() {
 
 module.exports = CancelToken;
 
-
 /***/ }),
 /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1945,12 +1907,12 @@ module.exports = CancelToken;
  * @param {Function} callback
  * @returns {Function}
  */
+
 module.exports = function spread(callback) {
   return function wrap(arr) {
     return callback.apply(null, arr);
   };
 };
-
 
 /***/ })
 /******/ ]);
