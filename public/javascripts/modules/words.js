@@ -82,9 +82,12 @@ function searchWords () {
   let promiseArray = urls.map(url => axios.get(url))
   axios.all(promiseArray)
   .then(function (response) {
-    console.log(response)
+    let words = (
+      response.map(source => parseWikiMarkup(source))
+    )
+
+    console.log(words)
   })
-  console.log(urls)
 }
 
 // creates a wikimedia url for a given page title
@@ -92,4 +95,16 @@ function url (title) {
   const url = 'https://en.wikipedia.org/w/api.php'
   const query = `?action=query&titles=${title}&prop=revisions&rvprop=content&format=json&origin=*`
   return url.concat(query)
+}
+
+// parses a single wikipedia page
+function parseWikiMarkup (source) {
+  const page = source.data.query.pages
+  let words
+
+  for (var propName in page) {
+    const wikiPage = page[propName].revisions['0']['*']
+    words = wtfWikipedia.parse(wikiPage)
+  }
+  return words
 }
