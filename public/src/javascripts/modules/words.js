@@ -92,7 +92,18 @@ function searchWords () {
               .map(page => createWordsObject(page))
               .reduce(mergeWordObjects, {})
     )
-    console.log(finalWords)
+
+    // Sort histogram
+    let sortedWords = []
+    for (var word in finalWords) {
+      sortedWords.push([word, finalWords[word]])
+    }
+
+    sortedWords.sort(function (a, b) {
+      return b[1] - a[1]
+    })
+
+    console.log(sortedWords)
   })
 }
 
