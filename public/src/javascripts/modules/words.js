@@ -1,5 +1,6 @@
 import * as axios from 'axios'
 import * as wtfWikipedia from 'wtf_wikipedia'
+const wordFilter = require('../../../../data/wordFilter.json')
 
 // STEP 1 - SOURCES
 
@@ -133,7 +134,8 @@ function createWordsObject (page) {
     section.sentences.forEach(function (sentence) {
       let rawArray = sentence.text.split(' ')
 
-      const wordArray = rawArray.filter(removeWordsWithDigits)
+      const wordArray = rawArray.filter(removeNonDomainWords)
+                                .filter(removeWordsWithDigits)
                                 .filter(removeWordsWithInsideNonWordChars)
                                 .filter(removeEmptyWords)
                                 .map(word => replaceNonWordCharsFromStartAndEnd(word))
@@ -173,4 +175,12 @@ function replaceNonWordCharsFromStartAndEnd (word) {
 
 function removeEmptyWords (word) {
   return !(word === '')
+}
+
+function removeNonDomainWords (word) {
+  const nonDomainWords = wordFilter.filterWords
+  for (let i = 0; i < nonDomainWords.length; i++) {
+    if (word.toLowerCase() === nonDomainWords[i].toLowerCase()) { return false }
+  }
+  return true
 }
