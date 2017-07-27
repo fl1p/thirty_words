@@ -90,6 +90,7 @@ function searchWords () {
       response.map(source => parseWikiMarkup(source))
               .filter(deleteMetaPages)
               .map(page => createWordsObject(page))
+              .reduce(mergeWordObjects, {})
     )
     console.log(finalWords)
   })
@@ -161,6 +162,11 @@ function createWordsObject (page) {
   return words
 }
 
+function mergeWordObjects (words, source) {
+  const newWords = histoMerge(words, source)
+  return newWords
+}
+
 function removeWordsWithDigits (word) {
   return !(/.*\d+.*/.test(word))
 }
@@ -183,4 +189,15 @@ function removeNonDomainWords (word) {
     if (word.toLowerCase() === nonDomainWords[i].toLowerCase()) { return false }
   }
   return true
+}
+
+function histoMerge (a, b) {
+  for (var word in b) {
+    if (a.hasOwnProperty(word)) {
+      a[word] += b[word]
+    } else {
+      a[word] = b[word]
+    }
+  }
+  return a
 }
