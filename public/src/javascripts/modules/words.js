@@ -88,10 +88,10 @@ function searchWords () {
     let finalWords = (
       response.map(source => parseWikiMarkup(source))
               .filter(deleteMetaPages)
+              .map(page => createWordsObject(page))
     )
     console.log(finalWords)
   })
-  console.log(urls)
 }
 
 // creates a wikimedia url for a given page title
@@ -119,4 +119,37 @@ function deleteMetaPages (page) {
     console.log('Page filtered: ' + page.type)
   }
   return (page.type === 'page')
+}
+
+// creates the words object for a single page
+function createWordsObject (page) {
+  // transform page response sections into word arrays
+  // each section ends up as an array of its words
+  // TODO for now we are only using sections but there is more text
+  // check the page object to fiond out more
+  const wordArrays = []
+
+  page.sections.forEach(function (section) {
+    section.sentences.forEach(function (sentence) {
+      let rawArray = sentence.text.split(' ')
+
+      wordArrays.push(rawArray)
+    })
+  })
+
+  // create the words object which holds the
+  // counts of each word of every word array
+  const words = {}
+
+  wordArrays.forEach(function (wordArray) {
+    wordArray.forEach(function (word) {
+      if (words.hasOwnProperty(word)) {
+        words[word] += 1
+      } else {
+        words[word] = 1
+      }
+    })
+  })
+
+  return words
 }
