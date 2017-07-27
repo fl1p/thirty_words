@@ -133,7 +133,12 @@ function createWordsObject (page) {
     section.sentences.forEach(function (sentence) {
       let rawArray = sentence.text.split(' ')
 
-      wordArrays.push(rawArray)
+      const wordArray = rawArray.filter(removeWordsWithDigits)
+                                .filter(removeWordsWithInsideNonWordChars)
+                                .filter(removeEmptyWords)
+                                .map(word => replaceNonWordCharsFromStartAndEnd(word))
+
+      wordArrays.push(wordArray)
     })
   })
 
@@ -152,4 +157,20 @@ function createWordsObject (page) {
   })
 
   return words
+}
+
+function removeWordsWithDigits (word) {
+  return !(/.*\d+.*/.test(word))
+}
+
+function removeWordsWithInsideNonWordChars (word) {
+  return !(/\w+[\W_]+\w+/.test(word))
+}
+
+function replaceNonWordCharsFromStartAndEnd (word) {
+  return word.replace(/[\W_]+/g, '')
+}
+
+function removeEmptyWords (word) {
+  return !(word === '')
 }
