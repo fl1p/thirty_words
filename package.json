@@ -4,8 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "test",
-    "build": "webpack",
+    "start": "node app.js",
+    "test": "todo",
+    "build": "webpack --progress --colors --watch",
     "build:prod": "webpack -p"
   },
   "author": "Christoph Zipperle",
