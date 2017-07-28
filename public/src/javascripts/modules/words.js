@@ -103,7 +103,8 @@ function searchWords () {
       return b[1] - a[1]
     })
 
-    console.log(sortedWords)
+    // present results
+    presentResults(sortedWords)
   })
 }
 
@@ -211,4 +212,32 @@ function histoMerge (a, b) {
     }
   }
   return a
+}
+
+function presentResults (wordHistogram) {
+  // we only need the first 30 words
+  const words = wordHistogram.slice(0, 29)
+
+  // remove submit button of previous screen
+  const submit = document.querySelector('#sources_submit_button')
+  submit.parentNode.removeChild(submit)
+
+  // get the container div that already exists in the layout
+  const wordsDiv = $('#words')
+  // create new html
+  const header = "<p class='text_label'> Check out those juicy words! <p>"
+  const tableTop = "<div id='words_list'>"
+  const tableBody = words.map(word => {
+    return `
+      <hr>
+      <div class='words_list_entry'>
+        <p> ${word[0]} (${word[1]})</p>
+      </div>
+    `
+  }).join('').concat('<hr>')
+  const tableBottom = '</div>'
+
+  const html = header.concat(tableTop).concat(tableBody).concat(tableBottom)
+
+  wordsDiv.html(html)
 }
