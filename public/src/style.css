@@ -29,7 +29,7 @@ p {
 margin: 1em 0;
 }
 a:link, a:visited, a:hover, a:active {
-color: black !important;
+color: black;
 text-decoration: none;
 }
 input:focus {
@@ -41,6 +41,11 @@ outline-style: none;
 @font-face {
     font-family: 'Multicolore';
     src: url('./fonts/multicolore/Multicolore.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Comfortaa-Regular';
+  src: url('./fonts/comfortaa/Comfortaa-Regular.ttf') format('truetype');
 }
 
 /* LAYOUT */
@@ -78,22 +83,38 @@ outline-style: none;
 }
 
 #start_button {
-  font-size: 3em;
+  margin-top: 1em;
   margin-bottom: 0.5em;
 }
 
 #start_link {
-  font-size: 1.5em;
+  font-family: 'Comfortaa-Regular';
+  font-size: 2em;
   text-decoration: none;
+  vertical-align: middle;
+  padding-top: 0.15em;
   padding-left: 1em;
   padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+}
 
-
+#start_link:hover {
+  font-family: 'Comfortaa-Regular';
+  font-size: 2em;
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
   border: 2px solid black;
   border-radius: 1em;
 }
 
 #about_link {
+  font-family: 'Comfortaa-Regular';
   font-size: 1em;
   text-decoration: none;
 }
