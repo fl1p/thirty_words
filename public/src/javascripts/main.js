@@ -4,7 +4,7 @@ $(document).ready(function () {
   // SEARCH SOURCES
 
   // set up event listener to detect user input
-  const input = document.querySelector('#searchInput')
+  const input = document.querySelector('#search_input')
   if (input) {
     let timer
     const waitInterval = 2000

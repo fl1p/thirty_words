@@ -19,7 +19,7 @@ function addListenersToSourcesForm () {
     item.addEventListener('click', clickSource)
   }
 
-  document.querySelector('#sourcesForm').addEventListener('submit', function (e) {
+  document.querySelector('#sources_form').addEventListener('submit', function (e) {
     e.preventDefault()
     searchWords()
   })
@@ -27,7 +27,7 @@ function addListenersToSourcesForm () {
 
 // search sources based on user input
 export const searchSources = function () {
-  const term = document.querySelector('#searchInput').value
+  const term = document.querySelector('#search_input').value
   const url = `https://en.wikipedia.org/w/api.php`
   const params = {
     action: 'opensearch',
@@ -56,10 +56,10 @@ export const searchSources = function () {
       // TODO (re-)move / animate search form
 
       // display next 'screen'
-      document.querySelector('#searchInput').blur()
+      document.querySelector('#search_input').blur()
       document.querySelector('#sources_label').style.display = 'block'
-      document.querySelector('#sourcesForm').innerHTML = finalHtml
-      document.querySelector('#sourcesForm').style.display = 'block'
+      document.querySelector('#sources_form').innerHTML = finalHtml
+      document.querySelector('#sources_form').style.display = 'block'
 
       addListenersToSourcesForm()
     })
@@ -73,8 +73,6 @@ export const searchSources = function () {
 // STEP 2: Words
 
 function searchWords () {
-  console.log('Searhing words---')
-
   // get all list entries with class active into array
   let selectedSources = []
   const sources = document.querySelectorAll('.sources_list_entry .active')
@@ -103,7 +101,6 @@ function searchWords () {
       return b[1] - a[1]
     })
 
-    // present results
     presentResults(sortedWords)
   })
 }
@@ -127,7 +124,7 @@ function parseWikiMarkup (source) {
   return words
 }
 
-// returns false for meta pages
+// returns false for meta pages, so they will be filtered out
 function deleteMetaPages (page) {
   if (page.type !== 'page') {
     console.log('Page filtered: ' + page.type)

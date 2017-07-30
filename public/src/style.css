@@ -119,19 +119,16 @@ outline-style: none;
   text-decoration: none;
 }
 
-/* SEARCH */
+/* SEARCH PAGE*/
 
-#searchForm {
+#search_form {
   margin: 0 auto;
   width: 100%;
-  text-align: center;
-  /*border: 1px solid black;*/
 }
 
-#searchInput {
+#search_input {
   font-size: 5em;
   text-align: center;
-
   border: none;
 }
 
@@ -144,7 +141,9 @@ outline-style: none;
   font-size: 1em;
 }
 
-#sourcesForm {
+/* SOURCE LIST */
+
+#sources_form {
   display: none;
 }
 
