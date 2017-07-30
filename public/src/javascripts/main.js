@@ -18,7 +18,6 @@ $(document).ready(function () {
     input.addEventListener('keydown', function (e) {
       if (e.keyCode === 13) {
         e.preventDefault()
-        console.log('Yup')
         searchSources()
       } else {
         clearTimeout(timer)

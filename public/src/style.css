@@ -48,6 +48,21 @@ outline-style: none;
   src: url('./fonts/comfortaa/Comfortaa-Regular.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Comfortaa-Light';
+  src: url('./fonts/comfortaa/Comfortaa-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Comfortaa-Bold';
+  src: url('./fonts/comfortaa/Comfortaa-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Alamain';
+  src: url('./fonts/alamain/Alamain.ttf') format('truetype');
+}
+
 /* LAYOUT */
 
 .container {
@@ -56,7 +71,7 @@ outline-style: none;
 
 .header {
   display: block;
-  height: 33%;
+  height: 15%;
 }
 
 .content {
@@ -66,13 +81,25 @@ outline-style: none;
   display: table;
   vertical-align: middle;
   text-align: center;
-  height: 33%;
-  /*border: 1px solid black;*/
+  height: 70%;
+}
+
+.center {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .footer {
   display: block;
-  height: 33%;
+  height: 15%;
+}
+
+/* SHARED */
+
+.text_label {
+  font-size: 4em;
+  color: lightgrey;
+  font-family: 'Comfortaa-Regular';
 }
 
 /* START PAGE */
@@ -127,17 +154,14 @@ outline-style: none;
 }
 
 #search_input {
-  font-size: 5em;
+  font-size: 8em;
+  font-family: 'Comfortaa-Bold';
   text-align: center;
   border: none;
 }
 
-.text_label {
- font-size: 4em;
- color: lightgrey;
-}
-
 #search_link_back {
+  font-family: 'Comfortaa-Regular';
   font-size: 1em;
 }
 
@@ -145,6 +169,7 @@ outline-style: none;
 
 #sources_form {
   display: none;
+  padding-bottom: 1em;
 }
 
 #sources_label {
@@ -156,40 +181,102 @@ outline-style: none;
   margin-top: 1em;
   margin-bottom: 1em;
   font-size: 2em;
-
 }
 
-#sources_submit_button {
+#sources_link {
+  font-family: 'Comfortaa-Regular';
+  font-size: 1.5em;
+  background-color: white;
+  text-decoration: none;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+}
+
+#sources_link:hover {
+  font-family: 'Comfortaa-Regular';
+  font-size: 1.5em;
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+}
+
+/*#sources_submit_button {
+
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   font-size: 1.3em;
-}
+}*/
 
 /* TODO use either the div or the p then deselect / hover should work */
 .sources_list_entry {
+  padding-top: 0.5em;
+  padding-bottom: 0.3em;
+
   color: darkgrey;
-  font-weight: 300;
+  font-size: 0.7em;
+  font-family: 'Comfortaa-Light';
 }
 
 .sources_list_entry:hover {
   color: black;
-  font-weight: 300;
 }
 
 .sources_list_entry .active {
   color: dimgray;
-  font-weight: 400;
-
+  font-family: 'Comfortaa-Regular'
 }
+
+/* WORDS LIST */
 
 #words_list {
   margin-top: 1em;
   margin-bottom: 1em;
   font-size: 2em;
-
 }
 
 .words_list_entry {
+  padding-top: 0.5em;
+  padding-bottom: 0.3em;
+
   color: darkgrey;
-  font-weight: 300;
+  font-size: 0.7em;
+  font-family: 'Comfortaa-Light';
+}
+
+#new_search_link {
+  font-family: 'Comfortaa-Regular';
+  font-size: 1.5em;
+  background-color: white;
+  text-decoration: none;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+  margin-bottom: 1em;
+}
+
+#new_search_link:hover {
+  font-family: 'Comfortaa-Regular';
+  font-size: 1.5em;
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
 }

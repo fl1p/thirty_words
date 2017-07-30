@@ -42,21 +42,21 @@ export const searchSources = function () {
     .then(function (res) {
       const html = res.data[1].map((source, i) => {
         return `
-          <hr>
           <div class='sources_list_entry'>
             <p> ${source} </p>
           </div>
         `
-      }).join('').concat('<hr>')
+      }).join('')
 
       const top = "<div id='sources_list'>"
-      const bottom = '</div> <input id="sources_submit_button" class="button btn btn-lg btn-default" type="submit" value="Find words"> '
+      const bottom = '</div> <input id="sources_link" type="submit" value="Find words"> '
       const finalHtml = top.concat(html).concat(bottom)
 
       // TODO (re-)move / animate search form
 
       // display next 'screen'
-      document.querySelector('#search_input').blur()
+      document.querySelector('#search_input').remove()
+      document.querySelector('#search_label').remove()
       document.querySelector('#sources_label').style.display = 'block'
       document.querySelector('#sources_form').innerHTML = finalHtml
       document.querySelector('#sources_form').style.display = 'block'
@@ -212,13 +212,12 @@ function histoMerge (a, b) {
 }
 
 function presentResults (wordHistogram) {
-  // we only need the first 30 words
-  const words = wordHistogram.slice(0, 29)
+  // we only need the first 33 words
+  const words = wordHistogram.slice(0, 32)
 
-  // remove submit button of previous screen
-  const submit = document.querySelector('#sources_submit_button')
-  submit.parentNode.removeChild(submit)
-
+  // clear screen
+  $('#sources_label').remove()
+  $('#sources_form').remove()
   // get the container div that already exists in the layout
   const wordsDiv = $('#words')
   // create new html
@@ -226,13 +225,12 @@ function presentResults (wordHistogram) {
   const tableTop = "<div id='words_list'>"
   const tableBody = words.map(word => {
     return `
-      <hr>
       <div class='words_list_entry'>
         <p> ${word[0]} (${word[1]})</p>
       </div>
     `
-  }).join('').concat('<hr>')
-  const tableBottom = '</div>'
+  }).join('')
+  const tableBottom = '</div> <a href="../search" id="new_search_link"> New search </a>'
 
   const html = header.concat(tableTop).concat(tableBody).concat(tableBottom)
 

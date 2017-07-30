@@ -7,10 +7,11 @@ block content
   .container
     .header
     .content
-      p.text_label What are you interested in?
-      +searchForm
-      p#sources_label.text_label Click on the sources you want to use!
-      +sourcesForm
-      #words
-      a(href='../' id='search_link_back') Home 
+      .center
+        p#search_label.text_label What are you interested in?
+        +searchForm
+        p#sources_label.text_label Now click on the sources you want to use!
+        +sourcesForm
+        #words
+        a(href='../' id='search_link_back') Home 
     .footer
