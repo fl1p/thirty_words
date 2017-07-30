@@ -30,10 +30,17 @@ margin: 1em 0;
 }
 a:link, a:visited, a:hover, a:active {
 color: black !important;
-text-decoration: underline !important;
+text-decoration: none;
 }
 input:focus {
 outline-style: none;
+}
+
+/* FONTS */
+
+@font-face {
+    font-family: 'Multicolore';
+    src: url('./fonts/multicolore/Multicolore.otf') format('opentype');
 }
 
 /* LAYOUT */
@@ -66,7 +73,8 @@ outline-style: none;
 /* START PAGE */
 
 .content h1 {
-  font-size: 10em;
+  font-size: 12em;
+  font-family: 'Multicolore';
 }
 
 #start_button {
@@ -74,8 +82,20 @@ outline-style: none;
   margin-bottom: 0.5em;
 }
 
+#start_link {
+  font-size: 1.5em;
+  text-decoration: none;
+  padding-left: 1em;
+  padding-right: 1em;
+
+
+  border: 2px solid black;
+  border-radius: 1em;
+}
+
 #about_link {
   font-size: 1em;
+  text-decoration: none;
 }
 
 /* SEARCH */
