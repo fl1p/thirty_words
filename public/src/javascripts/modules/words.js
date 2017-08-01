@@ -49,17 +49,14 @@ export const searchSources = function () {
       }).join('')
 
       const top = "<div id='sources_list'>"
-      const bottom = '</div> <input id="sources_link" type="submit" value="Find words"> '
+      const bottom = '</div> <input id="sources_link" type="submit" value="Find words">'
       const finalHtml = top.concat(html).concat(bottom)
 
-      // TODO (re-)move / animate search form
+      // display next sources screen
+      document.querySelector('#search_screen').remove()
 
-      // display next 'screen'
-      document.querySelector('#search_input').remove()
-      document.querySelector('#search_label').remove()
-      document.querySelector('#sources_label').style.display = 'block'
       document.querySelector('#sources_form').innerHTML = finalHtml
-      document.querySelector('#sources_form').style.display = 'block'
+      document.querySelector('#sources_screen').style.display = 'block'
 
       addListenersToSourcesForm()
     })
@@ -101,7 +98,7 @@ function searchWords () {
       return b[1] - a[1]
     })
 
-    presentResults(sortedWords)
+    displayResultPage(sortedWords)
   })
 }
 
@@ -211,28 +208,70 @@ function histoMerge (a, b) {
   return a
 }
 
-function presentResults (wordHistogram) {
-  // we only need the first 33 words
-  const words = wordHistogram.slice(0, 32)
+function displayResultPage (wordHistogram) {
+  // first page
+  const wordsFirstPage = wordHistogram.slice(0, 10)
+  const wordsSecondPage = wordHistogram.slice(11, 21)
+  const wordsThirdPage = wordHistogram.slice(22, 32)
 
-  // clear screen
-  $('#sources_label').remove()
-  $('#sources_form').remove()
-  // get the container div that already exists in the layout
+  // get the container div for words that already exists in the layout
   const wordsDiv = $('#words')
-  // create new html
-  const header = "<p class='text_label'> Check out those juicy words! <p>"
+
+  // create html for first result page
+  const header = "<p class='text_label'> Check out those juicy words! </p>"
   const tableTop = "<div id='words_list'>"
-  const tableBody = words.map(word => {
+  const tableBody = wordsFirstPage.map(word => {
     return `
       <div class='words_list_entry'>
         <p> ${word[0]} (${word[1]})</p>
       </div>
     `
   }).join('')
-  const tableBottom = '</div> <a href="../search" id="new_search_link"> New search </a>'
+  const tableBottom = '</div>'
+  const nextPageLink = '<a href="#" class="next_page_link"> Next page </a>'
+  const firstPageHtml = header.concat(tableTop).concat(tableBody).concat(tableBottom).concat(nextPageLink)
 
-  const html = header.concat(tableTop).concat(tableBody).concat(tableBottom)
+  // display words screen first page
+  $('#sources_screen').remove()
+  wordsDiv.html(firstPageHtml)
+  document.querySelector('#word_screen').style.display = 'block'
 
-  wordsDiv.html(html)
+  document.querySelector('.next_page_link').addEventListener('click', displaySecondPage)
+
+  function displaySecondPage (event) {
+    // remove first page results
+    $('.words_list_entry').remove()
+    $('.next_page_link').remove()
+    // create second page and display it
+    const secondPageTable = wordsSecondPage.map(word => {
+      return `
+        <div class='words_list_entry'>
+          <p> ${word[0]} (${word[1]})</p>
+        </div>
+      `
+    }).join('')
+
+    $('#words_list').html(secondPageTable)
+    const nextPageLink = '<a href="#" class="next_page_link"> Last page </a>'
+    $('#words').append(nextPageLink)
+    document.querySelector('.next_page_link').addEventListener('click', displayThirdPage)
+  }
+
+  function displayThirdPage (event) {
+    // remove first page results
+    $('.words_list_entry').remove()
+    $('.next_page_link').remove()
+
+    // create second page and display it
+    const thirdPageTable = wordsThirdPage.map(word => {
+      return `
+        <div class='words_list_entry'>
+          <p> ${word[0]} (${word[1]})</p>
+        </div>
+      `
+    }).join('')
+
+    $('#words_list').html(thirdPageTable)
+    $('.next_page_link').remove()
+  }
 }
