@@ -67,6 +67,7 @@ outline-style: none;
 
 .container {
   height: 100vh;
+  display: table;
 }
 
 .header {
@@ -75,18 +76,13 @@ outline-style: none;
 }
 
 .content {
+  display: table-cell;
   padding-top: 5%;
   width: 90%;
   margin: 0 auto;
-  display: table;
   vertical-align: middle;
   text-align: center;
   height: 70%;
-}
-
-.center {
-  display: table-cell;
-  vertical-align: middle;
 }
 
 .footer {
@@ -148,6 +144,9 @@ outline-style: none;
 
 /* SEARCH PAGE*/
 
+#search_screen {
+}
+
 #search_form {
   margin: 0 auto;
   width: 100%;
@@ -167,14 +166,16 @@ outline-style: none;
 
 /* SOURCE LIST */
 
-#sources_form {
+#sources_screen {
   display: none;
+}
+
+#sources_form {
   padding-bottom: 1em;
 }
 
 #sources_label {
   margin-top: 1em;
-  display: none;
 }
 
 #sources_list {
@@ -210,13 +211,6 @@ outline-style: none;
   border-radius: 1em;
 }
 
-/*#sources_submit_button {
-
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  font-size: 1.3em;
-}*/
-
 /* TODO use either the div or the p then deselect / hover should work */
 .sources_list_entry {
   padding-top: 0.5em;
@@ -237,6 +231,10 @@ outline-style: none;
 }
 
 /* WORDS LIST */
+
+#word_screen {
+  display: none;
+}
 
 #words_list {
   margin-top: 1em;
@@ -279,4 +277,33 @@ outline-style: none;
   padding-right: 1em;
   border: 2px solid black;
   border-radius: 1em;
+}
+
+.next_page_link {
+  font-family: 'Comfortaa-Regular';
+  font-size: 1.5em;
+  background-color: white;
+  text-decoration: none;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+  margin-bottom: 2em;
+}
+
+.next_page_link:hover {
+  font-family: 'Comfortaa-Regular';
+  font-size: 1.5em;
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+  margin-bottom: 2em;
 }

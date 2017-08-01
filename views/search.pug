@@ -1,17 +1,14 @@
 extends layout
 
-include mixins/_searchForm
-include mixins/_sourcesForm
+include mixins/_searchScreen
+include mixins/_sourcesScreen
+include mixins/_wordScreen
 
 block content
   .container
     .header
     .content
-      .center
-        p#search_label.text_label What are you interested in?
-        +searchForm
-        p#sources_label.text_label Now click on the sources you want to use!
-        +sourcesForm
-        #words
-        a(href='../' id='search_link_back') Home 
+      +searchScreen
+      +sourcesScreen
+      +wordScreen
     .footer
