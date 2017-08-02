@@ -49,7 +49,7 @@ export const searchSources = function () {
       }).join('')
 
       const top = "<div id='sources_list'>"
-      const bottom = '</div> <input id="sources_link" type="submit" value="Find words">'
+      const bottom = '</div> <input id="sources_link" class="nav_link" type="submit" value="Find words">'
       const finalHtml = top.concat(html).concat(bottom)
 
       // display next sources screen
@@ -219,10 +219,10 @@ function displayResultPage (wordHistogram) {
   const html = `
     <p class="text_label"> Check out those juicy words! </p>
     <div id='words_list'> </div>
-    <a href="#" class="next_page_link"> Next </a>
+    <a href="#" id="next_page_link" class="nav_link"> Next </a>
   `
-  const nextPageLink = '<a href="#" class="next_page_link"> Next </a>'
-  const prevPageLink = '<a href="#" class="prev_page_link"> Prev </a>'
+  const nextPageLink = '<a href="#" id="next_page_link" class="nav_link"> Next </a>'
+  const prevPageLink = '<a href="#" id="prev_page_link" class="nav_link"> Prev </a>'
 
   // display new screen
   $('#sources_screen').remove()
@@ -238,13 +238,13 @@ function displayResultPage (wordHistogram) {
     $('#words_list').html('')
     $('#words_list').html(page)
 
-    const nextLink = document.querySelector('.next_page_link')
-    const prevLink = document.querySelector('.prev_page_link')
+    const nextLink = document.querySelector('#next_page_link')
+    const prevLink = document.querySelector('#prev_page_link')
 
     if (prevLink) {
       // user is coming from page 2
       nextLink.removeEventListener('click', displayThirdPage)
-      $('.prev_page_link').remove()
+      $('#prev_page_link').remove()
     }
     nextLink.addEventListener('click', displaySecondPage)
   }
@@ -255,20 +255,20 @@ function displayResultPage (wordHistogram) {
     $('#words_list').html('')
     $('#words_list').html(page)
 
-    const nextLink = document.querySelector('.next_page_link')
-    const prevLink = document.querySelector('.prev_page_link')
+    const nextLink = document.querySelector('#next_page_link')
+    const prevLink = document.querySelector('#prev_page_link')
 
     if (nextLink) {
       // user is coming from first page
       nextLink.removeEventListener('click', displaySecondPage)
       nextLink.addEventListener('click', displayThirdPage)
 
-      $('.next_page_link').before(prevPageLink)
-      document.querySelector('.prev_page_link').addEventListener('click', displayFirstPage)
+      $('#next_page_link').before(prevPageLink)
+      document.querySelector('#prev_page_link').addEventListener('click', displayFirstPage)
     } else {
       // user is coming from third page
-      $('.prev_page_link').before(nextPageLink)
-      document.querySelector('.next_page_link').addEventListener('click', displayThirdPage)
+      $('#prev_page_link').after(nextPageLink)
+      document.querySelector('#next_page_link').addEventListener('click', displayThirdPage)
 
       prevLink.removeEventListener('click', displaySecondPage)
       prevLink.addEventListener('click', displayFirstPage)
@@ -281,9 +281,9 @@ function displayResultPage (wordHistogram) {
     $('#words_list').html('')
     $('#words_list').html(page)
 
-    $('.next_page_link').remove()
-    document.querySelector('.prev_page_link').removeEventListener('click', displayFirstPage)
-    document.querySelector('.prev_page_link').addEventListener('click', displaySecondPage)
+    $('#next_page_link').remove()
+    document.querySelector('#prev_page_link').removeEventListener('click', displayFirstPage)
+    document.querySelector('#prev_page_link').addEventListener('click', displaySecondPage)
   }
 
   function createResultPageHtml(data) {

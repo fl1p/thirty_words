@@ -98,6 +98,17 @@ outline-style: none;
   font-family: 'Comfortaa-Regular';
 }
 
+.nav_link {
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+  font-family: 'Comfortaa-Regular';
+  text-decoration: none;
+  vertical-align: middle;
+}
+
 /* START PAGE */
 
 .content h1 {
@@ -111,29 +122,12 @@ outline-style: none;
 }
 
 #start_link {
-  font-family: 'Comfortaa-Regular';
   font-size: 2em;
-  text-decoration: none;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
 }
 
 #start_link:hover {
-  font-family: 'Comfortaa-Regular';
-  font-size: 2em;
-  text-decoration: none;
   color: white;
   background-color: black;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
 }
 
 #about_link {
@@ -143,9 +137,6 @@ outline-style: none;
 }
 
 /* SEARCH PAGE*/
-
-#search_screen {
-}
 
 #search_form {
   margin: 0 auto;
@@ -185,33 +176,16 @@ outline-style: none;
 }
 
 #sources_link {
-  font-family: 'Comfortaa-Regular';
   font-size: 1.5em;
   background-color: white;
-  text-decoration: none;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
 }
 
 #sources_link:hover {
-  font-family: 'Comfortaa-Regular';
-  font-size: 1.5em;
-  text-decoration: none;
   color: white;
   background-color: black;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
+  text-decoration: none;
 }
 
-/* TODO use either the div or the p then deselect / hover should work */
 .sources_list_entry {
   padding-top: 0.5em;
   padding-bottom: 0.3em;
@@ -249,93 +223,46 @@ outline-style: none;
   padding-top: 0.5em;
   padding-bottom: 0.3em;
 
-  color: darkgrey;
+  color: black;
   font-size: 0.7em;
-  font-family: 'Comfortaa-Light';
+  font-family: 'Comfortaa-Regular';
 }
 
 #new_search_link {
-  font-family: 'Comfortaa-Regular';
   font-size: 1.5em;
   background-color: white;
-  text-decoration: none;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
   margin-bottom: 1em;
 }
 
 #new_search_link:hover {
-  font-family: 'Comfortaa-Regular';
-  font-size: 1.5em;
-  text-decoration: none;
   color: white;
   background-color: black;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
+  text-decoration: none;
 }
 
-.next_page_link {
-  font-family: 'Comfortaa-Regular';
+#next_page_link {
   font-size: 1.5em;
   background-color: white;
-  text-decoration: none;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
   margin-bottom: 2em;
 }
 
-.next_page_link:hover {
-  font-family: 'Comfortaa-Regular';
-  font-size: 1.5em;
-  text-decoration: none;
+#next_page_link:hover {
   color: white;
   background-color: black;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
+  text-decoration: none;
   margin-bottom: 2em;
 }
 
-.prev_page_link {
-  font-family: 'Comfortaa-Regular';
+#prev_page_link {
   font-size: 1.5em;
   background-color: white;
-  text-decoration: none;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
   margin-bottom: 2em;
 }
 
-.prev_page_link:hover {
-  font-family: 'Comfortaa-Regular';
+#prev_page_link:hover {
   font-size: 1.5em;
-  text-decoration: none;
   color: white;
   background-color: black;
-  vertical-align: middle;
-  padding-top: 0.15em;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 2px solid black;
-  border-radius: 1em;
+  text-decoration: none;
   margin-bottom: 2em;
 }
