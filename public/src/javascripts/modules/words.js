@@ -209,69 +209,90 @@ function histoMerge (a, b) {
 }
 
 function displayResultPage (wordHistogram) {
-  // first page
+  // prepare variables
   const wordsFirstPage = wordHistogram.slice(0, 10)
   const wordsSecondPage = wordHistogram.slice(11, 21)
   const wordsThirdPage = wordHistogram.slice(22, 32)
 
-  // get the container div for words that already exists in the layout
+  // prepare screen specific html
   const wordsDiv = $('#words')
+  const html = `
+    <p class="text_label"> Check out those juicy words! </p>
+    <div id='words_list'> </div>
+    <a href="#" class="next_page_link"> Next </a>
+  `
+  const nextPageLink = '<a href="#" class="next_page_link"> Next </a>'
+  const prevPageLink = '<a href="#" class="prev_page_link"> Prev </a>'
 
-  // create html for first result page
-  const header = "<p class='text_label'> Check out those juicy words! </p>"
-  const tableTop = "<div id='words_list'>"
-  const tableBody = wordsFirstPage.map(word => {
-    return `
-      <div class='words_list_entry'>
-        <p> ${word[0]} (${word[1]})</p>
-      </div>
-    `
-  }).join('')
-  const tableBottom = '</div>'
-  const nextPageLink = '<a href="#" class="next_page_link"> Next page </a>'
-  const firstPageHtml = header.concat(tableTop).concat(tableBody).concat(tableBottom).concat(nextPageLink)
-
-  // display words screen first page
+  // display new screen
   $('#sources_screen').remove()
-  wordsDiv.html(firstPageHtml)
+  wordsDiv.html(html)
   document.querySelector('#word_screen').style.display = 'block'
 
-  document.querySelector('.next_page_link').addEventListener('click', displaySecondPage)
+  // for page specific content/html
+  displayFirstPage()
+
+  function displayFirstPage () {
+    const page = createResultPageHtml(wordsFirstPage)
+
+    $('#words_list').html('')
+    $('#words_list').html(page)
+
+    const nextLink = document.querySelector('.next_page_link')
+    const prevLink = document.querySelector('.prev_page_link')
+
+    if (prevLink) {
+      // user is coming from page 2
+      nextLink.removeEventListener('click', displayThirdPage)
+      $('.prev_page_link').remove()
+    }
+    nextLink.addEventListener('click', displaySecondPage)
+  }
 
   function displaySecondPage (event) {
-    // remove first page results
-    $('.words_list_entry').remove()
-    $('.next_page_link').remove()
-    // create second page and display it
-    const secondPageTable = wordsSecondPage.map(word => {
-      return `
-        <div class='words_list_entry'>
-          <p> ${word[0]} (${word[1]})</p>
-        </div>
-      `
-    }).join('')
+    const page = createResultPageHtml(wordsSecondPage)
 
-    $('#words_list').html(secondPageTable)
-    const nextPageLink = '<a href="#" class="next_page_link"> Last page </a>'
-    $('#words').append(nextPageLink)
-    document.querySelector('.next_page_link').addEventListener('click', displayThirdPage)
+    $('#words_list').html('')
+    $('#words_list').html(page)
+
+    const nextLink = document.querySelector('.next_page_link')
+    const prevLink = document.querySelector('.prev_page_link')
+
+    if (nextLink) {
+      // user is coming from first page
+      nextLink.removeEventListener('click', displaySecondPage)
+      nextLink.addEventListener('click', displayThirdPage)
+
+      $('.next_page_link').before(prevPageLink)
+      document.querySelector('.prev_page_link').addEventListener('click', displayFirstPage)
+    } else {
+      // user is coming from third page
+      $('.prev_page_link').before(nextPageLink)
+      document.querySelector('.next_page_link').addEventListener('click', displayThirdPage)
+
+      prevLink.removeEventListener('click', displaySecondPage)
+      prevLink.addEventListener('click', displayFirstPage)
+    }
   }
 
   function displayThirdPage (event) {
-    // remove first page results
-    $('.words_list_entry').remove()
-    $('.next_page_link').remove()
+    const page = createResultPageHtml(wordsThirdPage)
 
-    // create second page and display it
-    const thirdPageTable = wordsThirdPage.map(word => {
+    $('#words_list').html('')
+    $('#words_list').html(page)
+
+    $('.next_page_link').remove()
+    document.querySelector('.prev_page_link').removeEventListener('click', displayFirstPage)
+    document.querySelector('.prev_page_link').addEventListener('click', displaySecondPage)
+  }
+
+  function createResultPageHtml(data) {
+    return data.map(word => {
       return `
         <div class='words_list_entry'>
           <p> ${word[0]} (${word[1]})</p>
         </div>
       `
     }).join('')
-
-    $('#words_list').html(thirdPageTable)
-    $('.next_page_link').remove()
   }
 }

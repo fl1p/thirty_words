@@ -231,6 +231,9 @@ outline-style: none;
 }
 
 /* WORDS LIST */
+#words {
+  margin-bottom: 1.4em;
+}
 
 #word_screen {
   display: none;
@@ -294,6 +297,35 @@ outline-style: none;
 }
 
 .next_page_link:hover {
+  font-family: 'Comfortaa-Regular';
+  font-size: 1.5em;
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+  margin-bottom: 2em;
+}
+
+.prev_page_link {
+  font-family: 'Comfortaa-Regular';
+  font-size: 1.5em;
+  background-color: white;
+  text-decoration: none;
+  vertical-align: middle;
+  padding-top: 0.15em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 2px solid black;
+  border-radius: 1em;
+  margin-bottom: 2em;
+}
+
+.prev_page_link:hover {
   font-family: 'Comfortaa-Regular';
   font-size: 1.5em;
   text-decoration: none;
