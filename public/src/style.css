@@ -111,13 +111,30 @@ outline-style: none;
   vertical-align: middle;
 }
 
+.top_level_link {
+  font-family: 'Alamain';
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.top_level_link:hover {
+  color: #404040;
+  text-decoration: none;
+}
+
+.spacer {
+  margin-bottom: 2em;
+}
+
 /* ABOUT PAGE */
 #about {
   font-family: 'Comfortaa-Regular';
 }
 
 #about h2 {
-  font-family: 'Multicolore';
+  font-family: 'Alamain';
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
 
 .about_text {
@@ -144,17 +161,6 @@ outline-style: none;
   color: white;
   background-color: #404040;
   text-decoration: none;
-}
-
-#about_link {
-  font-family: 'Alamain';
-  font-size: 1em;
-  text-decoration: none;
-}
-
-#about_link:hover {
-  color: #404040;
-  text-decoration: underline;
 }
 
 /* SEARCH PAGE*/
@@ -255,7 +261,7 @@ outline-style: none;
   padding-top: 0.5em;
   padding-bottom: 0.3em;
 
-  color: #404040;
+  color: #808080;
   font-size: 0.7em;
   font-family: 'Comfortaa-Regular';
 }
