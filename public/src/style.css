@@ -29,7 +29,7 @@ p {
 margin: 1em 0;
 }
 a:link, a:visited, a:hover, a:active {
-color: black;
+color: #404040;
 text-decoration: none;
 }
 input:focus {
@@ -68,6 +68,7 @@ outline-style: none;
 .container {
   height: 100vh;
   display: table;
+  color: #404040;
 }
 
 .header {
@@ -94,16 +95,17 @@ outline-style: none;
 
 .text_label {
   font-size: 4em;
-  color: black;
-  font-family: 'Comfortaa-Regular';
+  font-family: 'Comfortaa-Bold';
+  color: #404040;
 }
 
 .nav_link {
   padding-top: 0.15em;
   padding-left: 1em;
   padding-right: 1em;
-  border: 2px solid black;
+  border: 2px solid #404040;
   border-radius: 1em;
+  font-size: 2em;
   font-family: 'Comfortaa-Regular';
   text-decoration: none;
   vertical-align: middle;
@@ -131,7 +133,7 @@ outline-style: none;
 
 #start_button {
   margin-top: 1em;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 #start_link {
@@ -140,14 +142,19 @@ outline-style: none;
 
 #start_link:hover {
   color: white;
-  background-color: black;
+  background-color: #404040;
   text-decoration: none;
 }
 
 #about_link {
-  font-family: 'Comfortaa-Regular';
+  font-family: 'Alamain';
   font-size: 1em;
   text-decoration: none;
+}
+
+#about_link:hover {
+  color: #404040;
+  text-decoration: underline;
 }
 
 /* SEARCH PAGE*/
@@ -161,12 +168,15 @@ outline-style: none;
   font-size: 8em;
   font-family: 'Comfortaa-Bold';
   text-align: center;
+  color: #808080;
   border: none;
 }
 
 #search_link_back {
-  font-family: 'Comfortaa-Regular';
+  margin-top: 0.5em;
+  font-family: 'Alamain';
   font-size: 1em;
+  color: #404040;
 }
 
 /* SOURCE LIST */
@@ -190,13 +200,13 @@ outline-style: none;
 }
 
 #sources_link {
-  font-size: 1.5em;
+  font-size: 2em;
   background-color: white;
 }
 
 #sources_link:hover {
   color: white;
-  background-color: black;
+  background-color: #404040;
   text-decoration: none;
 }
 
@@ -210,13 +220,21 @@ outline-style: none;
 }
 
 .sources_list_entry:hover {
-  color: black;
+  color: #404040;
 }
 
 .sources_list_entry .active {
   color: dimgray;
-  font-family: 'Comfortaa-Regular'
+  font-family: 'Comfortaa-Regular';
+
 }
+
+.sources_list_entry p {
+  margin: 0 auto;
+  display: table;
+  padding: 0.2em;
+}
+
 
 /* WORDS LIST */
 #words {
@@ -237,7 +255,7 @@ outline-style: none;
   padding-top: 0.5em;
   padding-bottom: 0.3em;
 
-  color: black;
+  color: #404040;
   font-size: 0.7em;
   font-family: 'Comfortaa-Regular';
 }
@@ -250,33 +268,33 @@ outline-style: none;
 
 #new_search_link:hover {
   color: white;
-  background-color: black;
+  background-color: #404040;
   text-decoration: none;
 }
 
 #next_page_link {
-  font-size: 1.5em;
   background-color: white;
   margin-bottom: 2em;
+  color: #404040;
+  text-decoration: none;
 }
 
 #next_page_link:hover {
   color: white;
-  background-color: black;
+  background-color: #404040;
   text-decoration: none;
-  margin-bottom: 2em;
 }
 
 #prev_page_link {
-  font-size: 1.5em;
   background-color: white;
   margin-bottom: 2em;
+  color: #404040;
+  text-decoration: none;
+
 }
 
 #prev_page_link:hover {
-  font-size: 1.5em;
   color: white;
-  background-color: black;
+  background-color: #404040;
   text-decoration: none;
-  margin-bottom: 2em;
 }
