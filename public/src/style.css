@@ -122,8 +122,42 @@ outline-style: none;
   text-decoration: none;
 }
 
+.hint {
+  font-size: 0.3em;
+  vertical-align: text-top;
+  margin-left: 0.3em;
+}
+
+.hint:hover {
+  filter: invert(100%);
+}
+
 .spacer {
   margin-bottom: 2em;
+}
+
+.modal-header {
+  font-family: 'Multicolore';
+  font-size: 2em;
+}
+
+.modal-title {
+  font-size: 1.5em;
+}
+
+.modal-text {
+  font-size: 1em;
+  font-family: 'Comfortaa-Regular';
+}
+
+.modal-heading {
+  font-size: 1.2em;
+  font-family: 'Alamain';
+  margin-bottom: 1em;
+}
+
+#modal-footer {
+  text-align: center;
 }
 
 /* ABOUT PAGE */

@@ -1,6 +1,32 @@
 mixin searchScreen()
   #search_screen
     p#search_label.text_label What are you interested in?
+    
+      span.glyphicon.glyphicon-info-sign.hint(aria-hidden="true", data-toggle="modal", data-target="#searchHelpModal")
+      #searchHelpModal.modal(tabindex="-1", role="dialog", aria-labelledby="searchModal")
+        .modal-dialog.modal-lg(role="document")
+          .modal-content
+            .modal-header
+              button.close(type="button", data-dismiss="modal", aria-label="Close") x
+              h4.modal-title INFO
+            .modal-body
+              h3.modal-heading What's going on?
+              p.modal-text
+                | This is where you start your search for new words. Basically you can search 
+                | for everything by just typing your search term and submit. But not every search 
+                | term will yield good results. Try to be specific, without being too restricted. 
+                | Examples for good search terms are: 'Tennis', 'Climbing' or 'Bitcoin'. 
+              h3.modal-heading How does it work?
+              p.modal-text
+                | This is what happens behind the scenes: When you submit the form, we are searching
+                | our archive for articles related to your input. During the beta phase, Wikipedia will
+                | serve as the only archive we search. In the next step you will be presented with the 
+                | best articles we found for your search, and you can select which ones you want to
+                | search for words.
+            .modal-footer#modal-footer
+              a.btn.btn-default(type="button" href="/about") More info
+              button.btn.btn-default(type="button" data-dismiss="modal") Let's do this!
+
     form(action='#' id='search_form')
       input(type='text' name='searchTerm' id='search_input' autocomplete="off" autofocus)
     a(href='../' id='search_link_back') Back to start page 
