@@ -154,14 +154,19 @@ outline-style: none;
   font-family: 'Comfortaa-Regular';
 }
 
+#about h1 {
+  font-size: 8em;
+}
+
 #about h2 {
+  font-size: 1.6em;
   font-family: 'Alamain';
   margin-top: 2em;
   margin-bottom: 1em;
 }
 
 .about_text {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 /* START PAGE */
