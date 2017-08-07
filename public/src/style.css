@@ -108,7 +108,7 @@ outline-style: none;
 
 .top_level_link:hover {
   color: #404040;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .hint {

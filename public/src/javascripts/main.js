@@ -13,4 +13,9 @@ $(document).ready(function () {
       }
     })
   }
+
+  // reset focus to input after modal was closed
+  $('#searchHelpModal').on('hidden.bs.modal', function () {
+    $('#search_input').focus()
+  })
 })

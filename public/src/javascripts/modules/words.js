@@ -4,24 +4,41 @@ const wordFilter = require('../../../../data/wordFilter.json')
 
 // STEP 1 - SOURCES
 
-function clickSource (event) {
-  const element = event.target
-  if (element.className === '') {
-    element.className = 'active'
-  } else if (element.className === 'active') {
-    element.className = ''
-  }
-}
-
 function addListenersToSourcesForm () {
+  function clickSource (event) {
+    const element = event.target
+    if (element.className === '') {
+      element.className = 'active'
+    } else if (element.className === 'active') {
+      element.className = ''
+    }
+  }
+
   const list = document.querySelectorAll('.sources_list_entry')
   for (var item of list) {
     item.addEventListener('click', clickSource)
   }
 
+  let nothingSelectedCounter = 0
+
   document.querySelector('#sources_form').addEventListener('submit', function (e) {
     e.preventDefault()
-    searchWords()
+    const selected = document.querySelectorAll('.sources_list_entry .active')
+    if (selected.length > 1) {
+      searchWords()
+    } else if (selected.length == 0) {
+      nothingSelectedCounter += 1
+      switch(nothingSelectedCounter) {
+        case 2:
+            $('#sources_label').text('Dude, at least try!')
+            break;
+        case 3:
+            $('#sources_label').text('We still believe in you!')
+            break;
+        default:
+            $('#sources_label').text('Select at least one source!!')
+      }
+    }
   })
 }
 
@@ -54,7 +71,6 @@ export const searchSources = function () {
 
       // display next sources screen
       document.querySelector('#search_screen').remove()
-
       document.querySelector('#sources_form').innerHTML = finalHtml
       document.querySelector('#sources_screen').style.display = 'block'
 
