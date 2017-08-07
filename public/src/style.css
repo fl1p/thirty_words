@@ -178,11 +178,13 @@ outline-style: none;
 
 #start_link {
   font-size: 2em;
+  color: white;
+  background-color: #404040;
 }
 
 #start_link:hover {
-  color: white;
-  background-color: #404040;
+  color: #404040;
+  background-color: white;
   text-decoration: none;
 }
 
@@ -230,12 +232,13 @@ outline-style: none;
 
 #sources_link {
   font-size: 2em;
-  background-color: white;
+  color: white;
+  background-color: #404040;
 }
 
 #sources_link:hover {
-  color: white;
-  background-color: #404040;
+  color: black;
+  background-color: white;
   text-decoration: none;
 }
 
@@ -302,28 +305,27 @@ outline-style: none;
 }
 
 #next_page_link {
-  background-color: white;
+  color: white;
+  background-color: #404040;
   margin-bottom: 2em;
-  color: #404040;
   text-decoration: none;
 }
 
 #next_page_link:hover {
-  color: white;
-  background-color: #404040;
+  color: #404040;
+  background-color: white;
   text-decoration: none;
 }
 
 #prev_page_link {
-  background-color: white;
+  color: white;
+  background-color: #404040;
   margin-bottom: 2em;
-  color: #404040;
   text-decoration: none;
-
 }
 
 #prev_page_link:hover {
-  color: white;
-  background-color: #404040;
+  color: #404040;
+  background-color: white;
   text-decoration: none;
 }
