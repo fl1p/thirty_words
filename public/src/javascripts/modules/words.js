@@ -45,6 +45,7 @@ function addListenersToSourcesForm () {
 // search sources based on user input
 export const searchSources = function () {
   const term = document.querySelector('#search_input').value
+
   const url = `https://en.wikipedia.org/w/api.php`
   const params = {
     action: 'opensearch',

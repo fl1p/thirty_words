@@ -215,6 +215,20 @@ outline-style: none;
   color: #404040;
 }
 
+#search_hint {
+  color: #f2f2f2;
+  font-family: 'Comfortaa-Light';
+  transition: color 0.5s linear;
+}
+
+#search_hint.invizible {
+  color: #f2f2f2;
+}
+
+#search_hint.make_vizible {
+  color: #b3b3b3;
+}
+
 /* SOURCE LIST */
 
 #sources_screen {
@@ -236,7 +250,7 @@ outline-style: none;
 }
 
 #sources_link {
-  font-size: 2em;
+  font-size: 1.5em;
   color: white;
   background-color: #404040;
 }
