@@ -176,6 +176,30 @@ outline-style: none;
   font-family: 'Multicolore';
 }
 
+.hl_first {
+  display: inline-block;
+}
+
+.hl_second {
+  display: inline-block;
+  animation-name: rotate;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.hl_third {
+  display: inline-block;
+}
+
+@keyframes rotate {
+  0% { transform: rotateY(0deg) }
+  40% { transform: rotateY(0deg) }
+  50% { transform: rotateY(180deg) }
+  90% { transform: rotateY(180deg) }
+  100% { transform: rotateY(360deg) }
+}
+
 #start_button {
   margin-top: 1em;
   margin-bottom: 1em;
