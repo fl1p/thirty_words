@@ -4,7 +4,8 @@ const wordFilter = require('../../../../data/wordFilter.json')
 
 // STEP 1 - SOURCES
 
-function addListenersToSourcesForm () {
+function addListenersToSourcesForm (term) {
+
   function clickSource (event) {
     const source = $(event.target.parentNode)
     if (!source.hasClass('active')) {
@@ -28,7 +29,7 @@ function addListenersToSourcesForm () {
         $(this).addClass('dissolve')
       })
       setTimeout(function () {
-        searchWords()
+        searchWords(term)
       },1000)
     } else {
       nothingSelectedCounter += 1
@@ -79,7 +80,7 @@ export const searchSources = function () {
       document.querySelector('#sources_form').innerHTML = finalHtml
       document.querySelector('#sources_screen').style.display = 'block'
 
-      addListenersToSourcesForm()
+      addListenersToSourcesForm(term)
     })
     .catch(function (error) {
       // TODO
@@ -90,8 +91,9 @@ export const searchSources = function () {
 
 // STEP 2: Words
 
-function searchWords () {
-
+function searchWords (term) {
+  console.log('Entering function searchWords')
+  console.log(term)
   // get all list entries with class active into array
   let selectedSources = []
   const sources = document.querySelectorAll('.sources_list_entry.active')
@@ -113,7 +115,7 @@ function searchWords () {
     let finalWords = (
       response.map(source => parseWikiMarkup(source))
               .filter(deleteMetaPages)
-              .map(page => createWordsObject(page))
+              .map(page => createWordsObject(page, term))
               .reduce(mergeWordObjects, {})
     )
 
@@ -154,7 +156,7 @@ function searchWords () {
     }
 
     // creates the words object for a single page
-    function createWordsObject (page) {
+    function createWordsObject (page, term) {
 
       // transform page response sections into word arrays
       // each section ends up as an array of its words
@@ -165,11 +167,13 @@ function searchWords () {
       page.sections.forEach(function (section) {
         section.sentences.forEach(function (sentence) {
           let rawArray = sentence.text.split(' ')
-
+          console.log('before .. term:')
+          console.log(term)
           const wordArray = rawArray.filter(removeNonDomainWords)
                                     .filter(removeWordsWithDigits)
                                     .filter(removeWordsWithInsideNonWordChars)
                                     .filter(removeEmptyWords)
+                                    .filter(removeSearchTerm, term)
                                     .map(word => replaceNonWordCharsFromStartAndEnd(word))
 
           wordArrays.push(wordArray)
@@ -212,11 +216,17 @@ function searchWords () {
 
       // TODO not working! why?
       function removeEmptyWords (word) {
-        return !(word === '')
+        return !(word === ' ')
       }
 
       function replaceNonWordCharsFromStartAndEnd (word) {
         return word.replace(/[\W_]+/g, '')
+      }
+
+      function removeSearchTerm (word) {
+        console.log(word)
+        console.log(term)
+        return !(word.toLowerCase() == term.toLowerCase())
       }
     }
 
