@@ -292,16 +292,16 @@ outline-style: none;
   color: darkgrey;
   font-size: 0.7em;
   font-family: 'Comfortaa-Light';
+
+  transition: color 1s ease-in;
 }
 
 .sources_list_entry:hover {
   color: #404040;
 }
 
-.sources_list_entry .active {
-  color: dimgray;
-  font-family: 'Comfortaa-Regular';
-
+.sources_list_entry.active {
+  color: #404040;
 }
 
 .sources_list_entry p {
@@ -310,6 +310,9 @@ outline-style: none;
   padding: 0.2em;
 }
 
+.dissolve {
+  color: white;
+}
 
 /* WORDS LIST */
 #words {

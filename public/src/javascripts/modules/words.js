@@ -6,11 +6,11 @@ const wordFilter = require('../../../../data/wordFilter.json')
 
 function addListenersToSourcesForm () {
   function clickSource (event) {
-    const element = event.target
-    if (element.className === '') {
-      element.className = 'active'
-    } else if (element.className === 'active') {
-      element.className = ''
+    const source = $(event.target.parentNode)
+    if (!source.hasClass('active')) {
+      source.addClass('active')
+    } else {
+      source.removeClass('active')
     }
   }
 
@@ -23,10 +23,14 @@ function addListenersToSourcesForm () {
 
   document.querySelector('#sources_form').addEventListener('submit', function (e) {
     e.preventDefault()
-    const selected = document.querySelectorAll('.sources_list_entry .active')
-    if (selected.length > 1) {
-      searchWords()
-    } else if (selected.length == 0) {
+    if ($('.sources_list_entry.active').length > 1) {
+      $('.sources_list_entry.active').each(function () {
+        $(this).addClass('dissolve')
+      })
+      setTimeout(function () {
+        searchWords()
+      },2000)
+    } else {
       nothingSelectedCounter += 1
       switch(nothingSelectedCounter) {
         case 2:
@@ -90,7 +94,7 @@ function searchWords () {
 
   // get all list entries with class active into array
   let selectedSources = []
-  const sources = document.querySelectorAll('.sources_list_entry .active')
+  const sources = document.querySelectorAll('.sources_list_entry.active')
   for (var i = sources.length; i--; selectedSources.unshift(sources[i]));
 
   // // creates a wikimedia url for a given page title
