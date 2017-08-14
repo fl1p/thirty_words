@@ -24,12 +24,12 @@ function addListenersToSourcesForm () {
   document.querySelector('#sources_form').addEventListener('submit', function (e) {
     e.preventDefault()
     if ($('.sources_list_entry.active').length > 1) {
-      $('.sources_list_entry.active').each(function () {
+      $('.sources_list_entry').not('.active').each(function () {
         $(this).addClass('dissolve')
       })
       setTimeout(function () {
         searchWords()
-      },2000)
+      },1000)
     } else {
       nothingSelectedCounter += 1
       switch(nothingSelectedCounter) {
