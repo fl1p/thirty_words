@@ -1,51 +1,8 @@
 import { prepareThirdScreen } from './thirdScreen'
+import * as secondScreenHelper from './secondScreenHelper'
 import * as axios from 'axios'
 
-function addListenersToSourcesForm (term) {
-  // make sources clickable
-  function clickSource (event) {
-    const source = $(event.target.parentNode)
-    if (!source.hasClass('active')) {
-      source.addClass('active')
-    } else {
-      source.removeClass('active')
-    }
-  }
-
-  const list = document.querySelectorAll('.sources_list_entry')
-  for (var item of list) {
-    item.addEventListener('click', clickSource)
-  }
-
-  let nothingSelectedCounter = 0
-
-  // set up submit listener
-  document.querySelector('#sources_form').addEventListener('submit', function (e) {
-    e.preventDefault()
-    if ($('.sources_list_entry.active').length > 1) {
-      $('.sources_list_entry').not('.active').each(function () {
-        $(this).addClass('dissolve')
-      })
-      setTimeout(function () {
-        prepareThirdScreen(term)
-      },1000)
-    } else {
-      nothingSelectedCounter += 1
-      switch(nothingSelectedCounter) {
-        case 2:
-            $('#sources_label').text('Dude, at least try!')
-            break;
-        case 3:
-            $('#sources_label').text('We still believe in you!')
-            break;
-        default:
-            $('#sources_label').text('Select at least one source!!')
-      }
-    }
-  })
-}
-
-// search sources based on user input
+// search wiki for sources based on user input
 export const prepareSecondScreen = function () {
   const term = document.querySelector('#search_input').value
 
@@ -60,8 +17,8 @@ export const prepareSecondScreen = function () {
   }
 
   axios.get(url, {params})
-    .then(function (res) {
-      const html = res.data[1].map((source, i) => {
+    .then(function (response) {
+      const html = response.data[1].map((source, i) => {
         return `
           <div class='sources_list_entry'>
             <p> ${source} </p>
@@ -78,7 +35,8 @@ export const prepareSecondScreen = function () {
       document.querySelector('#sources_form').innerHTML = finalHtml
       document.querySelector('#sources_screen').style.display = 'block'
 
-      addListenersToSourcesForm(term)
+      secondScreenHelper.makeSourcesSelectable()
+      secondScreenHelper.setSubmitListener(term, prepareThirdScreen)
     })
     .catch(function (error) {
       // TODO
