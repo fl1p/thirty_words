@@ -41,15 +41,13 @@ function clickSource (event) {
     source.removeClass('active')
 }
 
-export const createSourcesListHtml = function (titles) {
+export const createSourcesListHtml = function (sourcesHtml) {
   const top = "<div id='sources_list'>"
-  const middle = titles.map((title) => createHtmlForSource(title))
-                       .join('')
   const bottom = '</div> <input id="sources_link" class="nav_link" type="submit" value="Find words">'
-  return top.concat(middle).concat(bottom)
+  return top.concat(sourcesHtml).concat(bottom)
 }
 
-function createHtmlForSource (title) {
+export const createHtmlForSource = function (title) {
   return `
     <div class='sources_list_entry'>
       <p> ${title} </p>
