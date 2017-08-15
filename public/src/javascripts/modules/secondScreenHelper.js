@@ -40,3 +40,25 @@ function clickSource (event) {
     source.addClass('active') :
     source.removeClass('active')
 }
+
+export const createSourcesListHtml = function (titles) {
+  const top = "<div id='sources_list'>"
+  const middle = titles.map((title) => createHtmlForSource(title))
+                       .join('')
+  const bottom = '</div> <input id="sources_link" class="nav_link" type="submit" value="Find words">'
+  return top.concat(middle).concat(bottom)
+}
+
+function createHtmlForSource (title) {
+  return `
+    <div class='sources_list_entry'>
+      <p> ${title} </p>
+    </div>
+  `
+}
+
+export const displaySecondScreen = function (html) {
+  $('#search_screen').remove()
+  $('#sources_form').html(html)
+  $('#sources_screen').css('display', 'block')
+}
