@@ -54,17 +54,11 @@ export function createWordsObject (page, term) {
   // *
   function createHistogram () {
     const words = {}
-
     wordArrays.forEach(function (wordArray) {
       wordArray.forEach(function (word) {
-        if (words.hasOwnProperty(word)) {
-          words[word] += 1
-        } else {
-          words[word] = 1
-        }
+        words.hasOwnProperty(word) ? words[word] += 1 : words[word] = 1
       })
     })
-
     return words
   }
 
@@ -100,11 +94,9 @@ export function createWordsObject (page, term) {
 
 export function mergeWordObjects (words, source) {
   for (var word in source) {
-    if (words.hasOwnProperty(word)) {
-      words[word] += source[word]
-    } else {
-      words[word] = source[word]
-    }
+    words.hasOwnProperty(word) ?
+    words[word] += source[word] :
+    words[word] = source[word]
   }
   return words
 }

@@ -18,8 +18,6 @@ export const showFirstScreen = function () {
           e.preventDefault()
           // display hint if it does not exist
           if (document.querySelector('#search_hint')) {
-            console.log('animating hint..not')
-
               $('#search_hint').removeClass('make_vizible').addClass('invizible')
               setTimeout(function() {
                 $('#search_hint').removeClass('invizible').addClass('make_vizible');
