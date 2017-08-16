@@ -10,7 +10,7 @@ export const setSubmitListener = function (term, callback) {
 
   document.querySelector('#sources_form').addEventListener('submit', function (e) {
     e.preventDefault()
-    if ($('.sources_list_entry.active').length > 1) {
+    if ($('.sources_list_entry.active').length > 0) {
       $('.sources_list_entry').not('.active').each(function () {
         $(this).addClass('dissolve')
       })
