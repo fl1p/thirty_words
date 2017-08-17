@@ -2,6 +2,21 @@ import * as wtfWikipedia from 'wtf_wikipedia'
 import * as thirdScreenHelper from './thirdScreenHelper'
 const wordFilter = require('../../../../data/wordFilter.json')
 
+// for get words section:
+export function getArrayOfSelectedSources () {
+  let selectedSources = []
+  const sources = document.querySelectorAll('.sources_list_entry.active')
+  for (var i = sources.length; i--; selectedSources.unshift(sources[i]));
+
+  return selectedSources
+}
+
+export function createWikiUrl (title) {
+  const url = 'https://en.wikipedia.org/w/api.php'
+  const query = `?action=query&titles=${title}&prop=revisions&rvprop=content&format=json&origin=*`
+
+  return url.concat(query)
+}
 
 // parses a single wikipedia page
 export function parseWikiMarkup (source) {
@@ -115,8 +130,30 @@ export function sortWords (finalWords) {
   return sortedWords
 }
 
-export function createWikiUrl (title) {
-  const url = 'https://en.wikipedia.org/w/api.php'
-  const query = `?action=query&titles=${title}&prop=revisions&rvprop=content&format=json&origin=*`
-  return url.concat(query)
+// for display words section
+
+export function resultPageHtml () {
+  return `
+    <p class="text_label"> Check out those juicy words! </p>
+    <div id='words_list'> </div>
+    <a href="#" id="next_page_link" class="nav_link"> Next </a>
+  `
+}
+
+export function nextHtml () {
+  return '<a href="#" id="next_page_link" class="nav_link"> Next </a>'
+}
+
+export function prevHtml () {
+  return '<a href="#" id="prev_page_link" class="nav_link"> Prev </a>'
+}
+
+export function createWordListHtml(data) {
+  return data.map(word => {
+    return `
+      <div class='words_list_entry'>
+        <p> ${word[0]} (${word[1]})</p>
+      </div>
+    `
+  }).join('')
 }

@@ -5,17 +5,18 @@ import * as thirdScreenHelper from './thirdScreenHelper'
 // get words
 
 export const prepareThirdScreen = function (term) {
-  let selectedSources = []
-  const sources = document.querySelectorAll('.sources_list_entry.active')
-  for (var i = sources.length; i--; selectedSources.unshift(sources[i]));
+  // create urls for wikipedia api calls from selected source list elements.
+  // this is possible, as the value of the html element is the page title
+  // needed for the api call
 
-  const urls = selectedSources
-    .map(function (node) { return encodeURI(node.textContent.trim()) })
-    .map(function (title) { return thirdScreenHelper.createWikiUrl(title) })
+  const urls = thirdScreenHelper.getArrayOfSelectedSources()
+    .map(node => encodeURI(node.textContent.trim()))
+    .map(title => thirdScreenHelper.createWikiUrl(title))
 
   let promiseArray = urls.map(url => axios.get(url))
+
   axios.all(promiseArray)
-  .then(function (response) {
+  .then(response => {
     let finalWords = (
       response.map(source => thirdScreenHelper.parseWikiMarkup(source))
               .filter(thirdScreenHelper.deleteMetaPages)
@@ -28,32 +29,27 @@ export const prepareThirdScreen = function (term) {
   })
 }
 
+// display words
+
 function displayResultPage (sortedWords) {
-  // prepare variables
   const wordsFirstPage = sortedWords.slice(0, 10)
   const wordsSecondPage = sortedWords.slice(11, 21)
   const wordsThirdPage = sortedWords.slice(22, 32)
 
-  // prepare screen specific html
-  const wordsDiv = $('#words')
-  const html = `
-    <p class="text_label"> Check out those juicy words! </p>
-    <div id='words_list'> </div>
-    <a href="#" id="next_page_link" class="nav_link"> Next </a>
-  `
-  const nextPageLink = '<a href="#" id="next_page_link" class="nav_link"> Next </a>'
-  const prevPageLink = '<a href="#" id="prev_page_link" class="nav_link"> Prev </a>'
+  const html = thirdScreenHelper.resultPageHtml
+  const nextPageLink = thirdScreenHelper.nextHtml
+  const prevPageLink = thirdScreenHelper.prevHtml
 
   // display new screen
   $('#sources_screen').remove()
-  wordsDiv.html(html)
-  document.querySelector('#word_screen').style.display = 'block'
+  $('#words').html(html)
+  $('#word_screen').css('display', 'block')
 
   // for page specific content/html
   displayFirstPage()
 
   function displayFirstPage () {
-    const page = createResultPageHtml(wordsFirstPage)
+    const page = thirdScreenHelper.createWordListHtml(wordsFirstPage)
 
     $('#words_list').html('')
     $('#words_list').html(page)
@@ -70,7 +66,7 @@ function displayResultPage (sortedWords) {
   }
 
   function displaySecondPage (event) {
-    const page = createResultPageHtml(wordsSecondPage)
+    const page = thirdScreenHelper.createWordListHtml(wordsSecondPage)
 
     $('#words_list').html('')
     $('#words_list').html(page)
@@ -96,7 +92,7 @@ function displayResultPage (sortedWords) {
   }
 
   function displayThirdPage (event) {
-    const page = createResultPageHtml(wordsThirdPage)
+    const page = thirdScreenHelper.createWordListHtml(wordsThirdPage)
 
     $('#words_list').html('')
     $('#words_list').html(page)
@@ -104,15 +100,5 @@ function displayResultPage (sortedWords) {
     $('#next_page_link').remove()
     document.querySelector('#prev_page_link').removeEventListener('click', displayFirstPage)
     document.querySelector('#prev_page_link').addEventListener('click', displaySecondPage)
-  }
-
-  function createResultPageHtml(data) {
-    return data.map(word => {
-      return `
-        <div class='words_list_entry'>
-          <p> ${word[0]} (${word[1]})</p>
-        </div>
-      `
-    }).join('')
   }
 }
