@@ -49,10 +49,7 @@ export function createWordsObject (page, term) {
   page.sections.forEach(function (section) {
     section.sentences.forEach(function (sentence) {
       let rawArray = sentence.text.split(' ')
-      const wordArray = rawArray.filter(removeNonDomainWords)
-                                .filter(removeWordsWithDigits)
-                                .filter(removeWordsWithInsideNonWordChars)
-                                .filter(removeEmptyWords)
+      const wordArray = rawArray.filter(aggregateFilter)
                                 .filter(removeSearchTerm, term)
                                 .map(word => replaceNonWordCharsFromStartAndEnd(word))
 
@@ -77,6 +74,14 @@ export function createWordsObject (page, term) {
     return words
   }
 
+  function aggregateFilter (word, term) {
+    return  ( removeNonDomainWords(word) &&
+              removeWordsWithDigits(word) &&
+              removeWordsWithInsideNonWordChars(word) &&
+              removeEmptyWords(word)
+            )
+  }
+
   function removeNonDomainWords (word) {
     const nonDomainWords = wordFilter.filterWords
     for (let i = 0; i < nonDomainWords.length; i++) {
@@ -98,13 +103,14 @@ export function createWordsObject (page, term) {
     return !(word === ' ')
   }
 
+  function removeSearchTerm (word) {
+    return !(word.toLowerCase() == term.toLowerCase())
+  }
+
   function replaceNonWordCharsFromStartAndEnd (word) {
     return word.replace(/[\W_]+/g, '')
   }
 
-  function removeSearchTerm (word) {
-    return !(word.toLowerCase() == term.toLowerCase())
-  }
 }
 
 export function mergeWordObjects (words, source) {
