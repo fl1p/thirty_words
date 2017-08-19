@@ -54,11 +54,13 @@ export function checkSources (term, success, failure) {
       failure('Looks like this is not a known word')
     }
   })
-  .catch(function (error) {
-    console.log('An error occurred:')
-    console.log(error)
-    showErrorMessage('Something went wrong. Please try again')
-    $('#search_input').val('')
-    $('#search_input').focus()
-  })
+  .catch(handleErrors)
+}
+
+export function handleErrors (error) {
+  console.log('An error occurred:')
+  console.log(error)
+  showErrorMessage('Something went wrong. Please try again')
+  $('#search_input').val('')
+  $('#search_input').focus()
 }

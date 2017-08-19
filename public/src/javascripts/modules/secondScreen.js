@@ -1,5 +1,6 @@
 import { prepareThirdScreen } from './thirdScreen'
 import { createWikiUrl} from './thirdScreenHelper'
+import { handleErrors } from './firstScreenHelper'
 import * as secondScreenHelper from './secondScreenHelper'
 import * as thirdScreenHelper from './thirdScreenHelper'
 import * as axios from 'axios'
@@ -38,11 +39,9 @@ export const prepareSecondScreen = function () {
       secondScreenHelper.displaySecondScreen(sourceslistHtml)
       secondScreenHelper.makeSourcesSelectable()
       secondScreenHelper.setSubmitListener(term, prepareThirdScreen)
+
     })
+    .catch(handleErrors)
   })
-  .catch(function (error) {
-    // TODO
-    // think of appropriate error handling
-    console.log(error)
-  })
+  .catch(handleErrors)
 }
