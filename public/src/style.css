@@ -230,6 +230,8 @@ outline-style: none;
   text-align: center;
   color: #808080;
   border: none;
+  height: 140px;
+  width: 100%;
 }
 
 #search_link_back {
@@ -251,6 +253,16 @@ outline-style: none;
 
 #search_hint.make_vizible {
   color: #b3b3b3;
+}
+
+#hidden_helper_div {
+  width: auto;
+  display: inline-block;
+  visibility: hidden;
+  position: fixed;
+  overflow:auto;
+  font-size: 8em;
+  font-family: 'Comfortaa-Bold';
 }
 
 /* SOURCE LIST */
