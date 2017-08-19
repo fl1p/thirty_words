@@ -1,4 +1,4 @@
-mixin searchScreen()
+mixin firstScreen()
   #search_screen
     p#search_label.text_label What are you interested in?
     
@@ -30,3 +30,4 @@ mixin searchScreen()
     form(action='#' id='search_form')
       input(type='text' name='searchTerm' id='search_input' autocomplete="off" autofocus)
     a(href='../' id='search_link_back') Back to start page 
+  #hidden_helper_div

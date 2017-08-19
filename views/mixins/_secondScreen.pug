@@ -1,6 +1,6 @@
-mixin sourcesScreen()
+mixin secondScreen()
   #sources_screen
-    p#sources_label.text_label Now, select some sources!
+    p#sources_label.text_label Now select some sources!
     
       span.glyphicon.glyphicon-info-sign.hint(aria-hidden="true", data-toggle="modal", data-target="#sourcesHelpModal")
       #sourcesHelpModal.modal(tabindex="-1", role="dialog", aria-labelledby="sourcesModal")
@@ -18,10 +18,10 @@ mixin sourcesScreen()
                 | helps to use as many sources as possible, as long as they are relevant.
               h3.modal-heading How does it work?
               p.modal-text
-                | This is what happens behind the scenes: Each source relates to a Wikipedia
-                | article with that title. For every source you select we scan the respective
-                | article for words. We give scores to every occurring word, basically counting
-                | how often they occur. In the end we show you the 33 words with the best score: 
+                | Each source relates to a Wikipedia article with that title. For every source
+                | you select we scan the respective article for words. We give scores 
+                | to every occurring word, basically counting how often they occur.
+                | In the end we show you the 33 words with the best score: 
             .modal-footer#modal-footer
               a.btn.btn-default(type="button" href="/about") About page
               button.btn.btn-default(type="button" data-dismiss="modal") Let's do this!
