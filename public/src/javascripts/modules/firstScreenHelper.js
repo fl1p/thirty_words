@@ -26,7 +26,6 @@ export function adaptFontSize () {
   const inputWidth = $('#hidden_helper_div').width()
   const wrapperWidth = $('#search_screen').width()
 
-  printDebug()
   if (inputWidth > wrapperWidth - 50) {
     const newFontSize = decreaseFontSize()
 
