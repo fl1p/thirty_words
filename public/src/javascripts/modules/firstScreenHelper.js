@@ -1,4 +1,7 @@
-export const handleEmptyInput = function () {
+import * as secondScreenHelper from './secondScreenHelper'
+import * as axios from 'axios'
+
+export const showErrorMessage = function (message) {
   // display hint if it does not exist
   if (document.querySelector('#search_hint')) {
       $('#search_hint').removeClass('make_vizible').addClass('invizible')
@@ -9,7 +12,7 @@ export const handleEmptyInput = function () {
   } else {
     const searchHint = `
       <h3 id="search_hint" class="invizible">
-        Enter a search term to continue!
+        ${message}
       </h3>
     `
     $('#search_label').append(searchHint)
@@ -40,4 +43,22 @@ function decreaseFontSize () {
   const newFontSize = (oldFontSize - (oldFontSize / 20))
 
   return newFontSize.toString() + 'px'
+}
+
+export function checkSources (term, success, failure) {
+  secondScreenHelper.getSources(term)
+  .then(function (response) {
+    if (response.data[1].length) {
+      success()
+    } else {
+      failure('Looks like this is not a known word')
+    }
+  })
+  .catch(function (error) {
+    console.log('An error occurred:')
+    console.log(error)
+    showErrorMessage('Something went wrong. Please try again')
+    $('#search_input').val('')
+    $('#search_input').focus()
+  })
 }

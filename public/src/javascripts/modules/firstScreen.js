@@ -1,6 +1,9 @@
 import { prepareSecondScreen } from './secondScreen'
 import { handleEmptyInput } from './firstScreenHelper'
 import { adaptFontSize } from './firstScreenHelper'
+import { checkSources } from './firstScreenHelper'
+import { showErrorMessage } from './firstScreenHelper'
+
 
 export const showFirstScreen = function () {
   // reset focus to input when user closes modal
@@ -8,7 +11,6 @@ export const showFirstScreen = function () {
     $('#search_input').focus()
   })
 
-  // handle submit & typing
   const input = document.querySelector('#search_input')
   if (input) {
     input.addEventListener('keydown', function (e) {
@@ -16,9 +18,12 @@ export const showFirstScreen = function () {
         // submit
         e.preventDefault()
         if (input.value) {
-          prepareSecondScreen()
+          checkSources(input.value,
+            prepareSecondScreen,
+            showErrorMessage
+          )
         } else {
-          handleEmptyInput()
+          showErrorMessage('Enter a search term to continue!')
         }
       } else {
         // user is typing

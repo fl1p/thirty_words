@@ -6,20 +6,9 @@ import * as axios from 'axios'
 
 // search wiki for sources based on user input
 export const prepareSecondScreen = function () {
-  const term = document.querySelector('#search_input').value
+  const term = $('#search_input').val()
 
-  const url = `https://en.wikipedia.org/w/api.php`
-  const params = {
-    action: 'opensearch',
-    search: term,
-    limit: 10,
-    namespace: 0,
-    origin: '*',
-    format: 'json'
-  }
-
-  axios.get(url, {params})
-    // first we have to make sure the response is not a meta page
+  secondScreenHelper.getSources(term)
   .then(function (response) {
     const sources = response.data[1]
     const urls = sources

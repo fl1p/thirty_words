@@ -1,3 +1,5 @@
+import * as axios from 'axios'
+
 export const makeSourcesSelectable = function () {
   const list = document.querySelectorAll('.sources_list_entry')
   for (var item of list) {
@@ -31,6 +33,20 @@ export const setSubmitListener = function (term, callback) {
       }
     }
   })
+}
+
+export function getSources (term) {
+  const url = `https://en.wikipedia.org/w/api.php`
+  const params = {
+    action: 'opensearch',
+    search: term,
+    limit: 10,
+    namespace: 0,
+    origin: '*',
+    format: 'json'
+  }
+
+  return axios.get(url, {params})
 }
 
 // make sources selectable
