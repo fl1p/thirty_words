@@ -1,5 +1,6 @@
 import * as wtfWikipedia from 'wtf_wikipedia'
 import * as thirdScreenHelper from './thirdScreenHelper'
+import { showErrorMessage } from './firstScreenHelper'
 const wordFilter = require('../../../../data/wordFilter.json')
 
 // for get words section:
@@ -134,6 +135,18 @@ export function sortWords (finalWords) {
   })
 
   return sortedWords
+}
+
+export function startFromScratch () {
+  // clear & hide current screen
+  $('#sources_form').html('')
+  $('#sources_screen').css('display', 'none')
+
+  // clear input, display first screen, show message and reset focus
+  $('#search_input').val('')
+  $('#search_screen').css('display', 'block')
+  showErrorMessage('Something went wrong. Please try again!')
+  $('#search_input').focus()
 }
 
 // for display words section

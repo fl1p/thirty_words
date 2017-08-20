@@ -17,7 +17,7 @@ export const setSubmitListener = function (term, callback) {
         $(this).addClass('dissolve')
       })
       setTimeout(function () {
-        callback(term)
+        callback(term, 0)
       },1000)
     } else {
       nothingSelectedCounter += 1
@@ -72,7 +72,7 @@ export const createHtmlForSource = function (title) {
 }
 
 export const displaySecondScreen = function (html) {
-  $('#search_screen').remove()
+  $('#search_screen').css('display', 'none')
   $('#sources_form').html(html)
   $('#sources_screen').css('display', 'block')
 }

@@ -4,7 +4,7 @@ import * as thirdScreenHelper from './thirdScreenHelper'
 
 // get words
 
-export const prepareThirdScreen = function (term) {
+export const prepareThirdScreen = function (term, tries) {
   // create urls for wikipedia api calls from selected source list elements.
   // this is possible, as the value of the html element is the page title
   // needed for the api call
@@ -13,19 +13,30 @@ export const prepareThirdScreen = function (term) {
     .map(node => encodeURI(node.textContent.trim()))
     .map(title => thirdScreenHelper.createWikiUrl(title))
 
+
   let promiseArray = urls.map(url => axios.get(url))
 
   axios.all(promiseArray)
   .then(response => {
     let finalWords = (
-      response.map(source => thirdScreenHelper.parseWikiMarkup(source))
-              .filter(thirdScreenHelper.deleteMetaPages)
-              .map(page => thirdScreenHelper.createWordsObject(page, term))
-              .reduce(thirdScreenHelper.mergeWordObjects, {})
+      response
+        .map(source => thirdScreenHelper.parseWikiMarkup(source))
+        .filter(thirdScreenHelper.deleteMetaPages)
+        .map(page => thirdScreenHelper.createWordsObject(page, term))
+        .reduce(thirdScreenHelper.mergeWordObjects, {})
     )
 
     const sortedWords = thirdScreenHelper.sortWords(finalWords)
     displayResultPage(sortedWords)
+  })
+  .catch(error => {
+    if (tries < 3) {
+      tries += 1
+      console.log('An error occurred: ' + tries + '. of 3 tries')
+      prepareThirdScreen(term, tries)
+    } else {
+      thirdScreenHelper.startFromScratch()
+    }
   })
 }
 
